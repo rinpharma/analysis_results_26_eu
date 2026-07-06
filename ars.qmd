@@ -13,8 +13,6 @@ format:
       theme: default
 ---
 
-{{< include _ars_slides.qmd >}}
-
 **Treatment-emergent adverse events by primary system organ class and preferred term**
 
 <table class="ae-table">
