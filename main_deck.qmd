@@ -1,0 +1,68 @@
+---
+title: "ARS and ARDs in Action"
+subtitle: "R in Pharma European Summit 2026"
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    logo: ""
+    footer: "R in Pharma Summit Europe 2026"
+    transition: slide
+    incremental: false
+    css: styles.css
+---
+
+# Introductions
+
+## Orla Doyle
+
+- **Role:** <!-- Add role/title -->
+- **Organisation:** <!-- Add organisation -->
+- **Background:** <!-- Add background -->
+- **Focus areas:** <!-- Add focus areas -->
+
+## Gregory <!-- Add surname -->
+
+- **Role:** <!-- Add role/title -->
+- **Organisation:** <!-- Add organisation -->
+- **Background:** <!-- Add background -->
+- **Focus areas:** <!-- Add focus areas -->
+
+---
+
+# Demystifying ARS {background-color="#2c3e50"}
+
+
+## Demo: ARS-Driven Automation for CSRs
+
+<!-- 15 min section — Orla -->
+
+
+
+# ARS and ARDs in Action: Market Access {background-color="#2c3e50"}
+
+## Market Access Context
+
+<!-- 10 min section — Gregory -->
+
+
+
+# Discussion and Q&A {background-color="#2c3e50"}
+
+## Discussion Prompts
+<!-- 15 min section — Gregory -->
+
+
+
+**Questions?**
+
+::: {.columns}
+::: {.column width="50%"}
+**Orla Doyle**  
+<!-- Add contact/LinkedIn -->
+:::
+::: {.column width="50%"}
+**Gregory <!-- Add surname -->**  
+<!-- Add contact/LinkedIn -->
+:::
+:::
