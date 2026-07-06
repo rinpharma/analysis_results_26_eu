@@ -13,7 +13,7 @@ format:
       theme: default
 ---
 
-## What Are We Building? An AE Table Shell {.smaller}
+{{< include _ars_slides.qmd >}}
 
 **Treatment-emergent adverse events by primary system organ class and preferred term**
 

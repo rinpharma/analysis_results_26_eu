@@ -10,6 +10,8 @@ format:
     transition: slide
     incremental: false
     css: styles.css
+    mermaid:
+      theme: default
 ---
 
 # Introductions
@@ -32,6 +34,7 @@ format:
 
 # Demystifying ARS {background-color="#2c3e50"}
 
+{{< include ars.qmd >}}
 
 ## Demo: ARS-Driven Automation for CSRs
 
