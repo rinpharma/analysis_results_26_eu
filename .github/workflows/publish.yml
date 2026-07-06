@@ -1,0 +1,82 @@
+name: Render and Publish Quarto Slides
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Allow one concurrent deployment; cancel in-progress runs on new push
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  # ── 1. Render ────────────────────────────────────────────────────────────────
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render slides
+        run: |
+          quarto render ars.qmd
+          quarto render main_deck.qmd
+
+      - name: Stage site artefacts
+        run: |
+          mkdir -p _site
+          cp *.html styles.css _site/
+          [ -d images ]      && cp -r images      _site/ || true
+          [ -d ars_files ]   && cp -r ars_files   _site/ || true
+          [ -d slides_files ] && cp -r slides_files _site/ || true
+          cat > _site/index.html <<'HTML'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>R in Pharma 2026 — ARS &amp; ARDs</title>
+            <style>
+              body { font-family: system-ui, sans-serif; max-width: 560px;
+                     margin: 4rem auto; padding: 0 1rem; color: #2c3e50; }
+              h1   { font-size: 1.5rem; }
+              li   { margin: 0.5rem 0; }
+              a    { color: #2471a3; }
+            </style>
+          </head>
+          <body>
+            <h1>R in Pharma European Summit 2026</h1>
+            <p>ARS &amp; ARDs in Action</p>
+            <ul>
+              <li><a href="main_deck.html">Main Deck — ARS &amp; ARDs in Action</a></li>
+              <li><a href="ars.html">Introducing Analysis Results Standard (ARS)</a></li>
+            </ul>
+          </body>
+          </html>
+          HTML
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  # ── 2. Deploy ────────────────────────────────────────────────────────────────
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
