@@ -33,8 +33,8 @@ jobs:
         run: |
           mkdir -p _site
           cp main_deck.html styles.css _site/
-          [ -d images ]      && cp -r images      _site/ || true
-          [ -d slides_files ] && cp -r slides_files _site/ || true
+          [ -d images ]           && cp -r images           _site/ || true
+          [ -d main_deck_files ]  && cp -r main_deck_files  _site/ || true
           cp main_deck.html _site/index.html
 
       - name: Upload Pages artifact
