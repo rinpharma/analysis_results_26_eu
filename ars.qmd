@@ -1,6 +1,6 @@
 ---
 title: "Analysis Results Standard"
-subtitle: "From Hard-Coded Tables to Structured Metadata"
+subtitle: "From Documents to Data"
 format:
   revealjs:
     theme: default
@@ -134,7 +134,7 @@ result <- adae_te %>%
 :::
 :::
 
-## Metadata Grows — Quickly {.smaller}
+## Metadata Quickly Grows {.smaller}
 
 One AE table means **many** analyses. The YAML expands rapidly:
 
@@ -209,28 +209,23 @@ reporting_event:
     # ... 100s of tables per study
 ```
 
+
+:::
+:::
 ::: {.complexity-note}
 Without a **schema**, this is unvalidated.  
 Without a **standard**, every team invents their own format.
 :::
-:::
-:::
 
 # Analysis Results Standard {background-color="#2c3e50"}
 
-## ARS: Background {.smaller}
+## ARS v1.0: Background {.smaller}
 
-**CDISC Analysis Results Standard (ARS)** — *Final Standard, November 2023*
-
-::: {.columns}
-::: {.column width="50%"}
 **What it defines**
 
 - A formal **metadata model** for every clinical analysis
 - Connects ADaM datasets (inputs) to results (outputs)
-- Expressed as a **LinkML schema** — tool-agnostic and validatable
-- Produces machine-readable **ARDs** (Analysis Results Datasets)
-- Covers: populations, filters, groupings, methods, operations
+- Covers concetps like populations, filters, groupings, methods, operations
 
 **Why it matters**
 
@@ -238,33 +233,113 @@ Without a **standard**, every team invents their own format.
 - Reproducible — any compliant tool gives the same result
 - Auditable — every result traces to a specification
 - Automatable — machines can execute the metadata directly
+
+**The ARS Stack**
+
+<table class="ae-table" style="margin-top: 0.8em;">
+<thead>
+<tr>
+  <th>Layer</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>LinkML</strong></td>
+  <td>The blueprint that defines and validates the ARS structure</td>
+</tr>
+<tr>
+  <td><strong>ARS (before execution)</strong></td>
+  <td>A machine-readable analysis specification</td>
+</tr>
+<tr>
+  <td><strong>ARS (after execution)</strong></td>
+  <td>The same specification, now enriched with results</td>
+</tr>
+<tr>
+  <td><strong>ARD</strong></td>
+  <td>The analysis results represented as structured result records that can be extracted from the completed ARS</td>
+</tr>
+</tbody>
+</table>
+
+## Demystifying ARS, ARD, and LinkML {.smaller}
+
+::: {style="margin-top: 1.5em; font-size: 1.1em;"}
+**ARS = Recipe**  
+The specification that describes *what* to analyze and *how* to compute it
+
+**ARD = Cooked Meal**  
+The actual results produced by executing the ARS specification
+
+**LinkML = Recipe Template**  
+The schema that defines the structure and rules for writing valid recipes
 :::
+
+::: {style="margin-top: 1.5em; font-size: 0.85em; background: #f5f5f5; padding: 1em; border-radius: 5px; border-left: 4px solid #2563eb;"}
+**Key Insight:** ARS starts as a specification document. After execution, it can also contain the resulting ARD — the specification and its results travel together.
+:::
+
+## Worked Example: From Spec to Results {.smaller}
+
+::: {.columns}
 ::: {.column width="50%"}
-**The ARS workflow**
+**ARS Specification (Recipe)**
 
+```yaml
+analysis:
+  id: AN001
+  label: "Mean Age by Treatment"
+  dataset: ADSL
+  variable: AGE
+  
+analysisSet:
+  condition: SAFFL == "Y"
+  
+grouping:
+  variable: TRTA
+  
+method:
+  operation: MEAN
 ```
-Study Analysis Plan (prose)
-          ↓
-  ARS Metadata (structured)
-          ↓
-  ADaM Datasets (inputs)
-          ↓
-    ARD (structured results)
-          ↓
-  TLFs / CSR (displays)
+
+<span style="color: #2563eb; font-weight: 600;">↓ Execute</span>
+:::
+
+::: {.column width="50%"}
+**ARD (Cooked Meal)**
+
+```yaml
+results:
+  - analysisId: AN001
+    groupId: "Placebo"
+    value: 42.3
+    
+  - analysisId: AN001
+    groupId: "Treatment A"
+    value: 43.1
+    
+  - analysisId: AN001
+    groupId: "Treatment B"
+    value: 41.8
 ```
 
-**Resources**
-
-- CDISC spec: cdisc.org/standards/foundational/ars
-- R packages: `{cards}`, `{roak}`
-- LinkML schema: github.com/cdisc-org/analysis-results-standard
+<span style="color: #16a34a; font-weight: 600;">✓ Results</span>
 :::
 :::
 
-## The ARS Model: Core Classes {.smaller}
+::: {style="margin-top: 0.8em; font-size: 0.78em; color: #555;"}
+**LinkML** ensures both the specification and results follow the same schema — any tool that understands ARS can read and execute this.
+:::
 
+
+
+## The ARS Model: Focus on some of the core classes for ARD generation {.smaller}
+
+::: {.columns}
+::: {.column width="65%"}
 ```{mermaid}
+%%{init: {'theme':'default', 'themeVariables': { 'fontSize':'9px', 'fontFamily':'arial'}}}%%
 classDiagram
     direction TB
 
@@ -310,9 +385,19 @@ classDiagram
     Analysis "1" --> "1" AnalysisMethod : method
     AnalysisMethod "1" --> "1..*" Operation : operations
 ```
+:::
 
-::: {style="font-size: 0.72em; margin-top: 0.4em;"}
-`AnalysisSet` = **who** (population) &nbsp;&middot;&nbsp; `DataSubset` = **which records** (event filter) &nbsp;&middot;&nbsp; `GroupingFactor` = **how to split** (columns) &nbsp;&middot;&nbsp; `Operation` = **what to compute**
+::: {.column width="35%"}
+::: {style="font-size: 0.65em; line-height: 1.5;"}
+`AnalysisSet` = **who** (population)
+
+`DataSubset` = **which records** (event filter)
+
+`GroupingFactor` = **how to split** (columns)
+
+`Operation` = **what to compute**
+:::
+:::
 :::
 
 ## Mapping ARS Back to Our Table {.smaller}
@@ -324,28 +409,28 @@ Every element of the AE table maps to an ARS class:
 <tr>
   <th>
     Adverse Event<br>
-    <span class="tag t-ds">dataset: ADAE</span>&nbsp;
-    <span class="tag t-sub">AnalysisSet: SAFFL="Y"</span>&nbsp;
-    <span class="tag t-wc">DataSubset: TRTEMFL="Y"</span>
+    <span class="tag t-ds fragment" data-fragment-index="0">dataset: ADAE</span>&nbsp;
+    <span class="tag t-sub fragment" data-fragment-index="1">AnalysisSet: SAFFL="Y"</span>&nbsp;
+    <span class="tag t-wc fragment" data-fragment-index="2">DataSubset: TRTEMFL="Y"</span>
   </th>
-  <th>Treatment A (N=xx)<br><span class="tag t-gf">GroupingFactor: TRTA</span></th>
-  <th>Treatment B (N=xx)<br><span class="tag t-gf">GroupingFactor: TRTA</span></th>
-  <th>Total (N=xx)<br><span class="tag t-gf">GroupingFactor: TRTA</span></th>
+  <th>Treatment A (N=xx)<br><span class="tag t-gf fragment" data-fragment-index="3">GroupingFactor: TRTA</span></th>
+  <th>Treatment B (N=xx)<br><span class="tag t-gf fragment" data-fragment-index="3">GroupingFactor: TRTA</span></th>
+  <th>Total (N=xx)<br><span class="tag t-gf fragment" data-fragment-index="3">GroupingFactor: TRTA</span></th>
 </tr>
 </thead>
 <tbody>
 <tr>
   <td><strong>Subjects with &ge;1 TEAE, n (%)</strong></td>
-  <td><span class="tag t-op">COUNT</span> xx &nbsp;<span class="tag t-op">PCT</span> (xx.x)</td>
-  <td><span class="tag t-op">COUNT</span> xx &nbsp;<span class="tag t-op">PCT</span> (xx.x)</td>
-  <td><span class="tag t-op">COUNT</span> xx &nbsp;<span class="tag t-op">PCT</span> (xx.x)</td>
+  <td><span class="tag t-op fragment" data-fragment-index="5">COUNT</span> xx &nbsp;<span class="tag t-op fragment" data-fragment-index="5">PCT</span> (xx.x)</td>
+  <td><span class="tag t-op fragment" data-fragment-index="5">COUNT</span> xx &nbsp;<span class="tag t-op fragment" data-fragment-index="5">PCT</span> (xx.x)</td>
+  <td><span class="tag t-op fragment" data-fragment-index="5">COUNT</span> xx &nbsp;<span class="tag t-op fragment" data-fragment-index="5">PCT</span> (xx.x)</td>
 </tr>
 <tr class="soc-row">
   <td><strong>Cardiac disorders</strong></td>
   <td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td>
 </tr>
 <tr>
-  <td>&emsp;Palpitations &nbsp;<span class="tag t-av">analysisVariable: USUBJID</span></td>
+  <td>&emsp;Palpitations &nbsp;<span class="tag t-av fragment" data-fragment-index="4">analysisVariable: USUBJID</span></td>
   <td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td>
 </tr>
 <tr class="soc-row">
@@ -353,17 +438,17 @@ Every element of the AE table maps to an ARS class:
   <td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td>
 </tr>
 <tr>
-  <td>&emsp;Fatigue &nbsp;<span class="tag t-av">analysisVariable: USUBJID</span></td>
+  <td>&emsp;Fatigue &nbsp;<span class="tag t-av fragment" data-fragment-index="4">analysisVariable: USUBJID</span></td>
   <td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td>
 </tr>
 </tbody>
 </table>
 
-::: {style="margin-top: 0.6em; font-size: 0.70em;"}
-<span class="legend-item"><span class="tag t-ds">dataset</span> ADaM source</span>&nbsp;
-<span class="legend-item"><span class="tag t-sub">AnalysisSet</span> population</span>&nbsp;
-<span class="legend-item"><span class="tag t-wc">DataSubset</span> row filter</span>&nbsp;
-<span class="legend-item"><span class="tag t-gf">GroupingFactor</span> columns</span>&nbsp;
-<span class="legend-item"><span class="tag t-av">analysisVariable</span> unit counted</span>&nbsp;
-<span class="legend-item"><span class="tag t-op">Operation</span> computation</span>
+::: {style="margin-top: 1em; font-size: 0.90em;"}
+- <span class="fragment" data-fragment-index="0"><span class="legend-item"><span class="tag t-ds">dataset</span> ADaM source</span></span>
+- <span class="fragment" data-fragment-index="1"><span class="legend-item"><span class="tag t-sub">AnalysisSet</span> population</span></span>
+- <span class="fragment" data-fragment-index="2"><span class="legend-item"><span class="tag t-wc">DataSubset</span> row filter</span></span>
+- <span class="fragment" data-fragment-index="3"><span class="legend-item"><span class="tag t-gf">GroupingFactor</span> columns</span></span>
+- <span class="fragment" data-fragment-index="4"><span class="legend-item"><span class="tag t-av">analysisVariable</span> unit counted</span></span>
+- <span class="fragment" data-fragment-index="5"><span class="legend-item"><span class="tag t-op">Operation</span> computation</span></span>
 :::

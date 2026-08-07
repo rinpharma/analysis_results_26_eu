@@ -9,7 +9,7 @@ format:
     footer: "R in Pharma Summit Europe 2026"
     transition: slide
     incremental: false
-    css: styles.css
+    css: style
     mermaid:
       theme: default
 ---
