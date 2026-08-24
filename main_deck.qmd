@@ -9,7 +9,7 @@ format:
     footer: "R in Pharma Summit Europe 2026"
     transition: slide
     incremental: false
-    css: style
+    css: styles.css
     mermaid:
       theme: default
 ---
@@ -32,7 +32,7 @@ format:
 
 ---
 
-# Demystifying ARS {background-color="#2c3e50"}
+# Demystifying ARS
 
 {{< include ars.qmd >}}
 
@@ -42,7 +42,7 @@ format:
 
 
 
-# ARS and ARDs in Action: Market Access {background-color="#2c3e50"}
+# ARS and ARDs in Action: Market Access
 
 ## Market Access Context
 
@@ -50,7 +50,7 @@ format:
 
 
 
-# Discussion and Q&A {background-color="#2c3e50"}
+# Discussion and Q&A
 
 ## Discussion Prompts
 <!-- 15 min section — Gregory -->

@@ -1,6 +1,6 @@
 /* Global slide content scaling */
 .reveal .slides section {
-  font-size: 0.85em;
+  font-size: 0.65em;
 }
 
 /* Title slide sizing */
@@ -12,19 +12,19 @@
 
 .reveal .slides h1,
 .reveal .slides section > h1 {
-  font-size: 1.8em !important;
+  font-size: 3.2em !important;
   margin-bottom: 0.3em !important;
 }
 
 .reveal .slides h2,
 .reveal .slides section > h2 {
-  font-size: 1.3em !important;
+  font-size: 2.3em !important;
   margin-bottom: 0.5em !important;
 }
 
 .reveal .slides h3,
 .reveal .slides section > h3 {
-  font-size: 1.1em !important;
+  font-size: 2.0em !important;
   margin-bottom: 0.4em !important;
 }
 
@@ -38,7 +38,7 @@
 
 /* AE summary table */
 .ae-table { 
-  font-size: 0.56em; 
+  font-size: 1.0em; 
   border-collapse: collapse; 
   width: 100%; 
   margin: 0 auto;
@@ -74,6 +74,9 @@
   vertical-align: middle; 
   margin-left: 2px; 
   white-space: nowrap; 
+}
+.ae-table .tag {
+  font-size: 0.65em;
 }
 .t-ds  { background-color: #1e3a8a; }
 .t-sub { background-color: #dc2626; }

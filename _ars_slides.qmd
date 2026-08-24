@@ -1,0 +1,360 @@
+## What Are We Building? An AE Table Shell {.smaller}
+
+**Treatment-emergent adverse events by primary system organ class and preferred term**
+
+<table class="ae-table">
+<thead>
+<tr>
+  <th>Adverse Event</th>
+  <th>Treatment A<br><span class="col-n">(N=xx)</span></th>
+  <th>Treatment B<br><span class="col-n">(N=xx)</span></th>
+  <th>Total<br><span class="col-n">(N=xx)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="soc-row"><td><strong>Number of subjects with at least one event</strong></td><td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td></tr>
+<tr class="soc-row"><td><strong>Cardiac disorders</strong></td><td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td></tr>
+<tr><td>&emsp;Sudden death </td><td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td></tr>
+<tr class="soc-row"><td><strong>General disorders and administration site conditions</strong></td><td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td></tr>
+<tr><td>&emsp;Sudden death</td><td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td></tr>
+<tr><td>&emsp;Postoperative fever</td><td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td></tr>
+</tbody>
+</table>
+
+::: {.table-note}
+`xx` = placeholder values. SOCs listed alphabetically. N = subjects in Safety Analysis Set; n (%) = subjects with &ge;1 event in category.
+:::
+
+## Generating the Table: Parameters Are Embedded {.smaller}
+
+Typical implementation — key parameters **hardcoded** directly in the script:
+
+```{.r code-line-numbers="5,7,13,18"}
+library(tidyverse)
+
+# Safety population
+adsl_safe <- adsl %>%
+  filter(SAFFL == "Y")              # <- hardcoded
+
+n_trt <- count(adsl_safe, TRTA)    # <- hardcoded
+
+# Treatment-emergent AEs
+adae_te <- adae %>%
+  filter(
+    USUBJID %in% adsl_safe$USUBJID,
+    TRTEMFL == "Y"                  # <- hardcoded
+  )
+
+# Count by System Organ Class and Preferred Term
+result <- adae_te %>%
+  group_by(AESOC, AEDECOD, TRTA) %>%  # <- hardcoded
+  summarise(n = n_distinct(USUBJID), .groups = "drop") %>%
+  left_join(n_trt, by = "TRTA") %>%
+  mutate(
+    pct  = round(n.x / n.y * 100, 1),
+    cell = sprintf("%d (%.1f)", n.x, pct)
+  )
+```
+
+> Every filter, variable name, and hierarchy is **buried in the code**.  
+> Changing the population means hunting through the script.
+
+## Separating Parameters from Code {.smaller}
+
+Pull parameters into a **YAML metadata file** — the code becomes generic:
+
+::: {.columns}
+::: {.column width="42%"}
+**`analysis_config.yaml`**
+
+```yaml
+population:
+  dataset:  ADSL
+  variable: SAFFL
+  value:    "Y"
+
+events:
+  dataset:  ADAE
+  variable: TRTEMFL
+  value:    "Y"
+
+grouping:
+  variable: TRTA
+
+subject_id: USUBJID
+
+hierarchy:
+  - AESOC
+  - AEDECOD
+```
+:::
+::: {.column width="56%"}
+**R code — driven by metadata**
+
+```r
+library(tidyverse)
+library(yaml)
+
+cfg <- read_yaml("analysis_config.yaml")
+
+# Population — from metadata
+adsl_safe <- adsl %>%
+  filter(.data[[cfg$population$variable]] ==
+           cfg$population$value)
+n_trt <- count(adsl_safe,
+               .data[[cfg$grouping$variable]])
+
+# Events — from metadata
+adae_te <- adae %>%
+  filter(
+    USUBJID %in% adsl_safe$USUBJID,
+    .data[[cfg$events$variable]] ==
+      cfg$events$value
+  )
+
+# Hierarchy — from metadata
+result <- adae_te %>%
+  group_by(across(all_of(
+    c(cfg$hierarchy, cfg$grouping$variable)
+  ))) %>%
+  summarise(
+    n = n_distinct(.data[[cfg$subject_id]]),
+    .groups = "drop"
+  )
+```
+:::
+:::
+
+## Metadata Grows — Quickly {.smaller}
+
+One AE table means **many** analyses. The YAML expands rapidly:
+
+::: {.columns}
+::: {.column width="50%"}
+```yaml
+reporting_event:
+  id: "RE-AE-001"
+  label: "AE Summary Table"
+
+  analysis_sets:
+    - id: AS001
+      label: "Safety Analysis Set"
+      condition:
+        dataset:    ADSL
+        variable:   SAFFL
+        comparator: EQ
+        value:      "Y"
+
+  data_subsets:
+    - id: DS001
+      label: "Treatment-Emergent AEs"
+      condition:
+        variable: TRTEMFL
+        value:    "Y"
+    - id: DS002
+      label: "Serious TEAEs"
+      conditions:
+        - {variable: TRTEMFL, value: "Y"}
+        - {variable: AESER,   value: "Y"}
+    - id: DS003
+      label: "TEAEs leading to D/C"
+      conditions:
+        - {variable: TRTEMFL, value: "Y"}
+        - {variable: AEACN,   value: "WITHDRAWN"}
+```
+:::
+::: {.column width="50%"}
+```yaml
+  groupings:
+    - id: GF001
+      groupingVariable: TRTA
+      dataDriven: false
+      groups:
+        - {id: G1, label: "Treatment A"}
+        - {id: G2, label: "Treatment B"}
+        - {id: G3, label: "Total"}
+
+  methods:
+    - id: M001
+      label: "n and percent"
+      operations:
+        - {id: OP1, label: "n",
+           function: COUNT_DISTINCT}
+        - {id: OP2, label: "%",
+           function: PERCENT_BY_SUBSET}
+
+  analyses:
+    - {id: AN001, label: ">=1 TEAE",
+       dataset:     ADAE,
+       analysisSet: AS001,
+       dataSubset:  DS001,
+       grouping:    GF001,
+       method:      M001}
+    - {id: AN002, label: "Serious TEAE",
+       dataset:     ADAE,
+       analysisSet: AS001,
+       dataSubset:  DS002,
+       grouping:    GF001,
+       method:      M001}
+    # ... 30+ more analyses per table
+    # ... 100s of tables per study
+```
+
+::: {.complexity-note}
+Without a **schema**, this is unvalidated.  
+Without a **standard**, every team invents their own format.
+:::
+:::
+:::
+
+# Analysis Results Standard {background-color="#2c3e50"}
+
+## ARS: Background {.smaller}
+
+**CDISC Analysis Results Standard (ARS)** — *Final Standard, November 2023*
+
+::: {.columns}
+::: {.column width="50%"}
+**What it defines**
+
+- A formal **metadata model** for every clinical analysis
+- Connects ADaM datasets (inputs) to results (outputs)
+- Expressed as a **LinkML schema** — tool-agnostic and validatable
+- Produces machine-readable **ARDs** (Analysis Results Datasets)
+- Covers: populations, filters, groupings, methods, operations
+
+**Why it matters**
+
+- Unambiguous — no programmer interpretation required
+- Reproducible — any compliant tool gives the same result
+- Auditable — every result traces to a specification
+- Automatable — machines can execute the metadata directly
+:::
+::: {.column width="50%"}
+**The ARS workflow**
+
+```
+Study Analysis Plan (prose)
+          ↓
+  ARS Metadata (structured)
+          ↓
+  ADaM Datasets (inputs)
+          ↓
+    ARD (structured results)
+          ↓
+  TLFs / CSR (displays)
+```
+
+**Resources**
+
+- CDISC spec: cdisc.org/standards/foundational/ars
+- R packages: `{cards}`, `{roak}`
+- LinkML schema: github.com/cdisc-org/analysis-results-standard
+:::
+:::
+
+## The ARS Model: Core Classes {.smaller}
+
+```{mermaid}
+classDiagram
+    direction TB
+
+    class ReportingEvent {
+        string id
+        string label
+    }
+    class Analysis {
+        string id
+        string label
+        string dataset
+        string analysisVariable
+    }
+    class AnalysisSet {
+        string id
+        string label
+        string condition
+    }
+    class DataSubset {
+        string id
+        string label
+        string condition
+    }
+    class GroupingFactor {
+        string id
+        string groupingVariable
+        boolean dataDriven
+    }
+    class AnalysisMethod {
+        string id
+        string label
+    }
+    class Operation {
+        string id
+        string label
+        string resultPattern
+    }
+
+    ReportingEvent "1" --> "*" Analysis : contains
+    Analysis "1" --> "1" AnalysisSet : analysisSet
+    Analysis "1" --> "0..1" DataSubset : dataSubset
+    Analysis "1" --> "1..*" GroupingFactor : orderedGroupings
+    Analysis "1" --> "1" AnalysisMethod : method
+    AnalysisMethod "1" --> "1..*" Operation : operations
+```
+
+::: {style="font-size: 0.72em; margin-top: 0.4em;"}
+`AnalysisSet` = **who** (population) &nbsp;&middot;&nbsp; `DataSubset` = **which records** (event filter) &nbsp;&middot;&nbsp; `GroupingFactor` = **how to split** (columns) &nbsp;&middot;&nbsp; `Operation` = **what to compute**
+:::
+
+## Mapping ARS Back to Our Table {.smaller}
+
+Every element of the AE table maps to an ARS class:
+
+<table class="ae-table">
+<thead>
+<tr>
+  <th>
+    Adverse Event<br>
+    <span class="tag t-ds">dataset: ADAE</span>&nbsp;
+    <span class="tag t-sub">AnalysisSet: SAFFL="Y"</span>&nbsp;
+    <span class="tag t-wc">DataSubset: TRTEMFL="Y"</span>
+  </th>
+  <th>Treatment A (N=xx)<br><span class="tag t-gf">GroupingFactor: TRTA</span></th>
+  <th>Treatment B (N=xx)<br><span class="tag t-gf">GroupingFactor: TRTA</span></th>
+  <th>Total (N=xx)<br><span class="tag t-gf">GroupingFactor: TRTA</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Subjects with &ge;1 TEAE, n (%)</strong></td>
+  <td><span class="tag t-op">COUNT</span> xx &nbsp;<span class="tag t-op">PCT</span> (xx.x)</td>
+  <td><span class="tag t-op">COUNT</span> xx &nbsp;<span class="tag t-op">PCT</span> (xx.x)</td>
+  <td><span class="tag t-op">COUNT</span> xx &nbsp;<span class="tag t-op">PCT</span> (xx.x)</td>
+</tr>
+<tr class="soc-row">
+  <td><strong>Cardiac disorders</strong></td>
+  <td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td>
+</tr>
+<tr>
+  <td>&emsp;Palpitations &nbsp;<span class="tag t-av">analysisVariable: USUBJID</span></td>
+  <td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td>
+</tr>
+<tr class="soc-row">
+  <td><strong>General disorders and administration site conditions</strong></td>
+  <td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td>
+</tr>
+<tr>
+  <td>&emsp;Fatigue &nbsp;<span class="tag t-av">analysisVariable: USUBJID</span></td>
+  <td>xx (xx.x)</td><td>xx (xx.x)</td><td>xx (xx.x)</td>
+</tr>
+</tbody>
+</table>
+
+::: {style="margin-top: 0.6em; font-size: 0.70em;"}
+<span class="legend-item"><span class="tag t-ds">dataset</span> ADaM source</span>&nbsp;
+<span class="legend-item"><span class="tag t-sub">AnalysisSet</span> population</span>&nbsp;
+<span class="legend-item"><span class="tag t-wc">DataSubset</span> row filter</span>&nbsp;
+<span class="legend-item"><span class="tag t-gf">GroupingFactor</span> columns</span>&nbsp;
+<span class="legend-item"><span class="tag t-av">analysisVariable</span> unit counted</span>&nbsp;
+<span class="legend-item"><span class="tag t-op">Operation</span> computation</span>
+:::
