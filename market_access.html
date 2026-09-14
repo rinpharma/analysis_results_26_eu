@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="market_access_files/libs/clipboard/clipboard.min.js"></script>
+<script src="market_access_files/libs/quarto-html/tabby.min.js"></script>
+<script src="market_access_files/libs/quarto-html/popper.min.js"></script>
+<script src="market_access_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="market_access_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="market_access_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="market_access_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.42">
+
+  <title>market_access</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="market_access_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="market_access_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="market_access_files/libs/revealjs/dist/theme/quarto-2f366650f320edcfcf53d73c80250a32.css">
+  <link rel="stylesheet" href="styles.css">
+  <link href="market_access_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="market_access_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="market_access_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="market_access_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script src="market_access_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="market_access_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="market_access_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">ARS and ARDs in Action: Market Access</h1>
+
+<div class="quarto-title-authors">
+</div>
+
+</section>
+<section id="same-recipe-new-kitchen-new-diners" class="slide level2 smaller">
+<h2>Same Recipe, New Kitchen, New Diners</h2>
+<!--
+  Use case for market access  (10 min — Gregory)
+  Included from main_deck.qmd via {{< include market_access.qmd >}}.
+  No YAML front matter on purpose: front matter in an included file overrides the main deck title.
+  Speaker notes (::: {.notes}) carry talking points and sources; press S in the deck to open them.
+-->
+<div class="concept-strip">
+<div class="item">
+<p><strong>ARS: the recipe</strong> populations, subsets, groupings, methods, operations as data</p>
+</div>
+<div class="item green">
+<p><strong>ARD: the meal</strong> the result records an executed recipe yields</p>
+</div>
+<div class="item orange">
+<p><strong>LinkML: the template</strong> what a valid recipe looks like</p>
+</div>
+</div>
+<div class="card-row compact">
+<div class="card">
+<p><span class="card-title">The CSR kitchen cooks for one diner: the regulator</span></p>
+<p>One base ingredient, the trial data (SDTM, ADaM, CSR). One menu, written by the sponsor in the SAP. One meal, the CSR tables.</p>
+</div>
+<div class="card orange">
+<p><span class="card-title">Market access serves a table of HTA assessors</span></p>
+<p>Each with their own tastes: a comparator, a population, a template. Same base ingredient, plus ingredients the sponsor does not grow: published aggregates from a literature review, real-world data, registries, expert elicitation. The recipe has to adapt, not just re-run.</p>
+</div>
+</div>
+<div class="big-statement">
+<p>In the first published Joint Clinical Assessment, the HTA assessors could not reproduce most of the naive safety comparisons. <span class="sub">The error was in an ingredient: event rates extracted from the comparator’s publication had been switched between two outcomes. It was caught because an HTA assessor tried to recompute the numbers from the dossier and could not. <sup class="cite">[1]</sup></span></p>
+</div>
+<div class="src-note">
+<p>[1] Joint Clinical Assessment Report, Tovorafenib, v1.0, endorsed by the HTA Coordination Group 30 Apr 2026, published 9 Jun 2026, Appendix D.2, request 4 (p.&nbsp;138): “The assessors were not able to reproduce the effect estimates shown for the naïve comparisons for most of the safety outcomes”; developer’s response: “the event rates for these two outcomes in the Bouffet 2023 study had been switched around in the analyses”. health.ec.europa.eu/publications/joint-clinical-assessment-report-tovorafenib-ojemda_en</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Continuity: one strip, no re-definition. Orla’s stack table already reconciles the terminology: “ARD” is not an ARS class; results are OperationResult records inside the reporting event, and “ARD” is the flat dataset the R ecosystem extracts from them. Say “result records” when precision matters.</li>
+<li>Why ARS exists, in one breath: twenty years ago we standardised what goes in (SDTM, ADaM, define.xml) and the document that comes out; the analysis in between stayed in code and its results in prose. ARS and ARD are the missing middle.</li>
+<li>The reproduction story: tovorafenib JCA, request 4 of the second request for additional information. Serious AE, discontinuation due to AE and interruption due to AE could not be reproduced; severe AE could. The developer found the Bouffet 2023 event rates for two outcomes switched, corrected them and ran additional quality checks. Note for the discussion: the failure was in an external ingredient, not in the trial data, and it was found by hand.</li>
+<li>Show of hands, 15 seconds: “Who has worked on an HTA dossier? Keep it up if you wrote code for one.” Calibrates depth, and tells you whom to call on in the discussion.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="two-asks-of-the-same-base-ingredient" class="slide level2 smaller">
+<h2>Two Asks of the Same Base Ingredient</h2>
+<div class="diagram-mid">
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme':'default', 'themeVariables': {'fontSize':'16px', 'fontFamily':'Source Sans Pro, arial'}}}%%
+flowchart LR
+  T["&lt;b&gt;Base ingredient&lt;/b&gt;&lt;br/&gt;trial data · SDTM, ADaM, CSR"]
+  X["&lt;b&gt;Added ingredients&lt;/b&gt;&lt;br/&gt;literature aggregates, RWD,&lt;br/&gt;registries, expert elicitation"]
+  subgraph HTA["HTA track"]
+    direction LR
+    H1["&lt;b&gt;EU JCA&lt;/b&gt;&lt;br/&gt;relative effectiveness and&lt;br/&gt;safety per PICO, clinical only"] --&gt; H2["&lt;b&gt;National HTA&lt;/b&gt;&lt;br/&gt;added benefit, cost-&lt;br/&gt;effectiveness, budget impact"] --&gt; H3(["&lt;b&gt;Price, reimbursement,&lt;/b&gt;&lt;br/&gt;&lt;b&gt;patient access&lt;/b&gt;"])
+  end
+  subgraph REG["Regulatory track"]
+    direction LR
+    R1["&lt;b&gt;EMA&lt;/b&gt;&lt;br/&gt;benefit–risk on quality,&lt;br/&gt;safety, efficacy"] --&gt; R2(["&lt;b&gt;Marketing&lt;/b&gt;&lt;br/&gt;&lt;b&gt;authorisation&lt;/b&gt;"])
+  end
+  T --&gt; R1
+  T --&gt; H1
+  X --&gt; H1
+  classDef reg fill:#eff6ff,stroke:#1e3a8a,color:#1a1a1a;
+  classDef hta fill:#fef5e7,stroke:#e67e22,color:#1a1a1a;
+  classDef ev fill:#f0fdf4,stroke:#16a34a,color:#1a1a1a;
+  classDef ext fill:#faf5ff,stroke:#7c3aed,color:#1a1a1a;
+  class R1,R2 reg;
+  class H1,H2,H3 hta;
+  class T ev;
+  class X ext;
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<table class="cmp-table dense">
+<thead>
+<tr>
+<th style="width:17%">
+</th>
+<th style="width:36%">
+Regulator asks
+</th>
+<th>
+HTA body asks
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+The question
+</td>
+<td>
+Do benefits outweigh risks for the indication?
+</td>
+<td>
+How much better than what we use today, for whom, and is it worth the price?
+</td>
+</tr>
+<tr>
+<td>
+Comparator, population
+</td>
+<td>
+The comparator justified at design; the trial population
+</td>
+<td>
+The local standard of care; the population the local pathway treats, often a subpopulation
+</td>
+</tr>
+<tr>
+<td>
+Ingredients
+</td>
+<td>
+Trial data; external evidence is the exception
+</td>
+<td>
+Trial data re-cut per template, plus literature aggregates, real-world data, expert elicitation, costs and utilities: assembled by the sponsor, often not owned
+</td>
+</tr>
+<tr>
+<td>
+Output
+</td>
+<td>
+One authorisation, one label
+</td>
+<td>
+One dossier per body: added-benefit category, cost per QALY, negotiated price
+</td>
+</tr>
+</tbody>
+</table>
+<div class="src-note">
+<p>Regulatory track: once, EU-wide. HTA track: JCA in parallel with the EMA procedure, then national HTA, pricing and reimbursement country by country (EU mean 597 days from authorisation to availability, EFPIA W.A.I.T. 2025). Reg. (EU) 2021/2282, Recital 4, Art. 1(2), 2(6); Eichler 2010.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Purpose of the slide: enough context for the discussion, not an HTA course. The two tracks read the same base ingredient and ask different questions; the HTA question forces new analyses and new ingredients.</li>
+<li>Regulatory: benefit-risk on quality, safety and efficacy; the comparator is the one the sponsor justified at design, placebo or active. HTA: relative effectiveness against the comparator(s) that matter in each health system, plus national economic and organisational domains.</li>
+<li>The Regulation’s Recital 4 names nine HTA domains: four clinical (health problem and current use, technical characteristics, relative safety, relative clinical effectiveness) and five non-clinical (cost and economic evaluation, ethical, organisational, social, legal). The JCA covers the four clinical domains only (Art. 2(6)); the five non-clinical domains and all pricing and reimbursement decisions stay national (Art. 1(2), Recital 14).</li>
+<li>Timing: the JCA runs in parallel with the centralised procedure (dossier due at the latest 45 days before the envisaged CHMP opinion, Art. 10(1)); the report must be endorsed no later than 30 days after the Commission decision granting the authorisation (Art. 11(1)(a)) and is published after a procedural check; observed lag so far 40 to 69 days. National HTA and pricing follow the authorisation, and that is where most of the delay to access sits: EFPIA W.A.I.T. 2025 (published May 2026, medicines authorised 2021–2024) gives an EU mean of 597 days from authorisation to availability, median 532, ranging from 56 days in Germany to 1,201 in Romania.</li>
+<li>Value proposition: in Germany the sponsor must demonstrate added benefit (Zusatznutzen) against the appropriate comparator therapy, on the basis of evidence it submits (§ 35a SGB V); in England the economic case is judged against NICE’s cost-per-QALY range, £25,000 to £35,000 since April 2026 (manual PMG36 §6.3). Both are claims the sponsor has to evidence, on top of the regulatory case.</li>
+<li>Eichler et al.&nbsp;2010 is the classic statement of the split: regulators license when benefits outweigh risks; payers decide on health benefit relative to existing treatment options.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-eu-joint-clinical-assessment-in-one-picture" class="slide level2 smaller">
+<h2>The EU Joint Clinical Assessment in One Picture</h2>
+<div class="columns">
+<div class="column" style="width:46%;">
+<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class=""><p></p>
+<div>
+<pre class="mermaid mermaid-js">%%{init: {'theme':'default', 'themeVariables': {'fontSize':'13px', 'fontFamily':'Source Sans Pro, arial'}}}%%
+timeline
+    title Regulation (EU) 2021/2282 roll-out
+    Jan 2025 : New active substances for cancer
+             : Advanced therapy medicinal products
+    Jan 2028 : Orphan medicines
+    Jan 2030 : All other centrally authorised medicines
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:54%;">
+<p>
+<strong>How it runs <sup class="cite">[1]</sup></strong>
+</p>
+<ul>
+<li>Member States’ PICOs are consolidated into one scope with several PICOs; one <strong>JCA dossier</strong> is filed in parallel with the EMA application</li>
+<li>A published report on relative effectiveness and safety, <strong>no value judgement, no price</strong>; national bodies “give due consideration”, then decide benefit, price and reimbursement</li>
+<li>Commission tracker, extract of <strong>10 Sep 2026</strong>: 23 started since January 2025, 4 published, 16 running, 3 discontinued (two for failing the Article 9 dossier requirements); published reports carried <strong>1, 7, 8 and 12 PICOs</strong> <sup class="cite">[2]</sup></li>
+</ul>
+<p>
+<strong>Key clinical evidence in the dossier <sup class="cite">[3]</sup></strong>
+</p>
+<ul>
+<li>Per PICO: efficacy, safety, all subgroups with interaction tests, AEs by SOC and PT; each analysis flagged as prespecified or not, multiplicity-controlled or not, and who requested it</li>
+<li>Where no head-to-head trial answers a PICO: <strong>indirect comparisons</strong> (Bucher, NMA, MAIC, STC) with their input data, model choices and convergence checks</li>
+<li>CSRs, protocols and analysis plans as appendices; <strong>no</strong> individual patient data; code only “if the analyses and corresponding calculations cannot be described by a specific standard method”</li>
+</ul>
+</div></div>
+<div class="src-note">
+<p>[1] Regulation (EU) 2021/2282, Art. 7(2), 8, 9(1), 11, 13. [2] European Commission, JCA tracker (ongoing, completed, discontinued), data extracted 10 Sep 2026; published JCA reports: lurbinectedin (1 PICO), tarlatamab (7), tovorafenib (8), onasemnogene abeparvovec (12 in the final scope). [3] HTACG, guidance on the JCA dossier template for medicinal products (adopted 28 Nov 2024), App. A.2, A.3, B.2, D.3, D.5; guidance on multiplicity, subgroup and sensitivity analyses (10 Jun 2024).</p>
+</div>
+<aside class="notes">
+<ul>
+<li>JCA is <em>joint</em> but not <em>binding</em>: it replaces the clinical part of national assessments in spirit, not the national decision. “No value judgement” is Article 9(1).</li>
+<li>The dossier template asks for interaction p-values for all subgroup analyses, full results where p &lt; 0.05 or where a Member State asked, and all subgroup results in Appendix A.3. Adverse events by SOC/PT at ≥5% incidence in Appendix A.2, serious and severe regardless of incidence. The multiplicity guidance requires, for each analysis, whether it was prespecified, whether multiplicity was controlled, and who deemed an unplanned analysis necessary (sponsor, regulator, HTA body).</li>
+<li>Indirect comparisons: dossier section 4.3.4 and Appendix D.5 (evidence-synthesis reports with protocols and SAPs); the reporting checklist in Appendix B.2 asks for software and version, code for non-standard methods, input data with derivation, MCMC chains, burn-in, iterations and convergence, the digitisation method for Kaplan-Meier curves, model and covariate selection, overlap and effective sample size, and results with and without population adjustment.</li>
+<li>Appendix B.2: “the HTD is not required to provide individual patient data, only aggregated data such as effect estimates with standard errors are required”. Patient listings are supplied only on an Article 11(2) request and are not published. Appendix D.3 asks for code and output only for non-standard methods. So: documents and, conditionally, code. No datasets.</li>
+<li>Tracker, 10 Sep 2026: 16 ongoing, 4 completed, 3 discontinued; catequentinib and the TIL therapy Tacquell were discontinued on 22 Jun 2026 because the dossier “fails to meet the requirements laid down in Article 9(2), (3) and (4)”; sasanlimab because the marketing application was withdrawn. Completed: tovorafenib (8 PICOs, only 1 assessable), tarlatamab (7), lurbinectedin (1), onasemnogene abeparvovec IT (12 PICOs across 6 populations in the final scope of 26 Feb 2026; several without comparative data).</li>
+<li>Three of the four completed assessments rested on indirect comparisons: unanchored MAIC with an effective sample size of 5.82 (tovorafenib), Bayesian NMA plus MAIC on digitised curves (tarlatamab), anchored and unanchored MAIC plus ML-NMR (onasemnogene).</li>
+<li>Article 13(1)(d): Member States may not re-request at national level what was submitted at EU level. HTACG Guiding Principles on Data Transparency (adopted 14 May 2026): trial results and evidence-synthesis methods are not commercially confidential; the dossier and its appendices are published, with redactions.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="what-hta-analytics-look-like-in-practice" class="slide level2 smaller">
+<h2>What HTA Analytics Look Like in Practice</h2>
+<div class="card-row compact">
+<div class="card orange">
+<p><span class="card-title">Volume</span></p>
+<ul>
+<li>German benefit dossiers grew from about <strong>750 to 3,500 pages</strong> on average after the 2020 template change; outliers reach 20,000 <sup class="cite">[1]</sup></li>
+<li>Mandatory subgroups (sex, age, severity, region, stratification factors) for every endpoint <sup class="cite">[2]</sup></li>
+<li>Safety by SOC and PT with RR, CI and p, repeated per subgroup: one safety annex ran to <strong>926 pages</strong> <sup class="cite">[3]</sup></li>
+<li>IQWiG sets aside <strong>33% of AE analyses and 73% of subgroup categories</strong> submitted <sup class="cite">[4]</sup></li>
+</ul>
+</div>
+<div class="card green">
+<p><span class="card-title">Ingredients that are not trial data: a meal rebuilt from its photograph</span></p>
+<ul>
+<li>Comparators the trial never had: literature aggregates, external controls from real-world data and registries, expert elicitation where data are absent <sup class="cite">[5]</sup></li>
+<li>Survival curves digitised from a PDF and turned back into patients who never existed, then fed to NMA or population adjustment <sup class="cite">[6]</sup></li>
+<li><strong>Three of the first four</strong> published JCAs rest on indirect comparisons; one on an effective sample size below six <sup class="cite">[7]</sup></li>
+<li>Template rules decide what exists: 10 patients and 10 events per subgroup, interaction p below 0.05, incidence above 5% <sup class="cite">[2,8]</sup></li>
+</ul>
+</div>
+<div class="card purple">
+<p><span class="card-title">Outputs that are not tables</span></p>
+<ul>
+<li>Extrapolation parameters, transition probabilities and utilities feed a cost-effectiveness model; NICE requires it fully executable, and its HTA assessors re-analyse it in <strong>93 of 100</strong> appraisals <sup class="cite">[9,10]</sup></li>
+<li>Countries file on different data cuts. Nobody requires an index of everything produced; the company needs one to know the totality of its own evidence</li>
+<li>A dossier is read by HTA assessors who never see the patient data</li>
+</ul>
+</div>
+</div>
+<div class="src-note">
+<p>[1] Schweitzer et al., Eur J Health Econ 2024;25(5): Modules 1–4 from 750 to 3,500 pages on average, “in individual cases 20,000 to even 40,000 pages”. [2] G-BA Module 4 dossier template, version 18 Nov 2025, §4.2.5.5, §4.3.1.3. [3] G-BA, empagliflozin Modul 4A Anhang 4-G, 28 Mar 2022, 926 pages; nintedanib Anhang 4-G, Feb 2025, 349 pages. [4] Schweitzer et al.&nbsp;2024 (vfa, Dec 2022: 77% of submitted analyses not considered). [5] HTACG methodological guideline for quantitative evidence synthesis (8 Mar 2024); NICE DSU TSD 26 (expert elicitation). [6] Guyot et al., BMC Med Res Methodol 2012;12:9; HTACG practical guideline (8 Mar 2024). [7] Published JCA reports, Jun–Sep 2026 (tovorafenib ESS 5.82). [8] HTACG JCA dossier guidance (28 Nov 2024), App. A.2; IQWiG General Methods 8.0 §10.3.9. [9] NICE technology appraisal manual PMG36 §5.5.15. [10] Carroll et al., Value Health 2017;20(6): 100 single technology appraisals, exploratory analyses of the company’s model.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>The German numbers are the strongest case for “structure at scale”: the dossier grew 4 to 5 times after 2020, mostly AE and subgroup analyses, and IQWiG disregards a third of AE analyses and nearly three quarters of subgroup categories. Around €800k to €1m and 12 months per dossier (vfa 2022; Schweitzer 2024).</li>
+<li>Macabeo et al.&nbsp;(PharmacoEconomics Open 2024;8(1)): 22% of 543 oncology HTA reports across five countries used an indirect comparison; 30% of those were accepted and about half were left unclear. The JCA experience so far is harsher: tovorafenib’s MAIC matched on an effective sample size of 5.82.</li>
+<li>The middle column is where ARS, as designed, stops applying: the ingredients are not ADaM and the methods carry assumptions (effect modifiers, weights, priors) that a “method + operation” model does not capture. The photograph line is the one metaphor extension worth making: pseudo-IPD reconstruction really is recovering a dish from a picture of it.</li>
+<li>Right column: the model is the consumer of many results, and the HTA assessor re-analyses the model while never seeing patient data. The data-cut point is about the company’s own sanity: a filing in one country may rest on interim analysis 2, in another on the final cut; efficient production and an accurate index are for the sponsor to know what it has produced, not because anyone mandates it.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-analysis-space-is-combinatorial" class="slide level2 smaller">
+<h2>The Analysis Space Is Combinatorial</h2>
+<div class="factor-row">
+<div class="factor" style="flex: 1.45;">
+<p><span class="f-title">Analysis families</span></p>
+<ul>
+<li>Descriptive: baseline, disposition, drug use before, during, after</li>
+<li>Efficacy, PRO, quality of life</li>
+<li>Safety: overall, serious, grade ≥3, <strong>by SOC and PT</strong></li>
+<li>Subgroups, interaction tests, sensitivity</li>
+<li>Model inputs: transition probabilities, PRO-mapped utilities</li>
+</ul>
+<p><span class="f-who">SAP and each HTA template</span></p>
+</div>
+<p><span class="times">×</span></p>
+<div class="factor f-orange">
+<p><span class="f-title">Populations</span></p>
+<ul>
+<li>Label population</li>
+<li>Subpopulations along the <strong>local pathway</strong>: line, biomarker, prior therapy, each with its <strong>own comparator</strong></li>
+</ul>
+<p><span class="f-who">Member States’ PICOs, national pathways</span></p>
+</div>
+<p><span class="times">×</span></p>
+<div class="factor f-green" style="flex: 1.35;">
+<p><span class="f-title">Comparators and their ingredients</span></p>
+<ul>
+<li>Trial control arm</li>
+<li>Standard of care per country: <strong>indirect comparison</strong> on literature aggregates, digitised curves</li>
+<li>External controls: RWD, registries</li>
+<li>Expert elicitation where data are absent</li>
+</ul>
+<p><span class="f-who">the HTA assessor, not the sponsor</span></p>
+</div>
+<p><span class="times">×</span></p>
+<div class="factor f-purple" style="flex: 0.85;">
+<p><span class="f-title">Data cut-offs</span></p>
+<ul>
+<li>Regulatory cut</li>
+<li>Later cuts for <strong>each region’s</strong> timing</li>
+<li>Different countries file on different cuts</li>
+</ul>
+<p><span class="f-who">submission calendars</span></p>
+</div>
+<p><span class="times">×</span></p>
+<div class="factor f-red" style="flex: 0.85;">
+<p><span class="f-title">Templates</span></p>
+<ul>
+<li>EU JCA dossier</li>
+<li>G-BA Module 4</li>
+<li>NICE, HAS, AIFA, …</li>
+<li>Own effect measures, thresholds, layouts</li>
+</ul>
+<p><span class="f-who">each HTA body</span></p>
+</div>
+</div>
+<div class="big-statement" style="font-size: 1.25em; margin-top: 0.5em;">
+<p>= thousands of result records, and every one is a PICO plus an analysis: population, intervention, comparator, outcome. <span class="sub">ARS names the same ideas differently: analysis set, grouping, data subset, method. Same recipe structure, different vocabulary: aligning it, and extending it where HTA has words ARS does not, is the next two slides.</span></p>
+</div>
+<aside class="notes">
+<ul>
+<li>Message: the volume is not exotic analyses, it is ordinary analyses multiplied by factors the sponsor does not control. That is exactly the situation a specification-driven approach is meant for.</li>
+<li>Populations and comparators are coupled: a subpopulation defined by the local pathway usually implies a different comparator, so a new PICO. Subgroups within a PICO do not create new PICOs (HTACG scoping guidance, Nov 2024).</li>
+<li>Model inputs are analyses too: parametric survival fits for extrapolation, transition probabilities, utilities from mapping PRO instruments to EQ-5D with country value sets. They are produced from the same ADaM and rarely appear in a CSR.</li>
+<li>The waste argument cuts both ways: IQWiG sets aside 73% of subgroup categories (Schweitzer 2024). Own it: automation makes the waste cheaper, not smaller. Navigability is the way out.</li>
+<li>Ask the room: how much of your HTA programming is genuinely new analysis, versus the same analysis with a different population, comparator or threshold?</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="what-ars-names-and-what-hta-would-add" class="slide level2 smaller">
+<h2>What ARS Names, and What HTA Would Add</h2>
+<table class="cmp-table dense xdense">
+<thead>
+<tr>
+<th style="width:15%">
+ARS class
+</th>
+<th style="width:15%">
+In the earlier AE table
+</th>
+<th style="width:25%">
+In the HTA setting
+</th>
+<th>
+What to record, for whom <sup class="cite">[1,2]</sup>
+</th>
+<th style="width:8%">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<code>ReportingEvent</code>
+</td>
+<td>
+The CSR
+</td>
+<td>
+One dossier per body, data cut and template version
+</td>
+<td>
+Which body, cut and template: to find the right dossier, and the delta between two
+</td>
+<td>
+<span class="tag t-fit">fits</span>
+</td>
+</tr>
+<tr>
+<td>
+<code>AnalysisSet</code>, <code>DataSubset</code>
+</td>
+<td>
+<code>SAFFL = “Y”</code>, <code>TRTEMFL = “Y”</code>
+</td>
+<td>
+The PICO population, often a subpopulation of the label; event subsets unchanged
+</td>
+<td>
+Which PICO the population answers: so the HTA assessor can find the analysis they asked for
+</td>
+<td>
+<span class="tag t-fit">fits</span>
+</td>
+</tr>
+<tr>
+<td>
+<code>GroupingFactor</code>
+</td>
+<td>
+<code>TRTA</code>; SOC and PT, data-driven
+</td>
+<td>
+Treatment vs the local comparator; effect-modifier subgroups
+</td>
+<td>
+The comparator’s identity and where its data came from: trial arm, publication, registry, elicitation
+</td>
+<td>
+<span class="tag t-stretch">stretch</span>
+</td>
+</tr>
+<tr>
+<td>
+<code>AnalysisMethod</code>, <code>Operation</code>
+</td>
+<td>
+COUNT, PERCENT
+</td>
+<td>
+RR with CI and p; weighted HR after matching; network meta-analysis
+</td>
+<td>
+The assumptions behind the estimate: matched effect modifiers, weights and effective sample size, priors, convergence. The JCA checklist asks for exactly these
+</td>
+<td>
+<span class="tag t-stretch">stretch</span>
+</td>
+</tr>
+<tr>
+<td>
+<code>Analysis.reason</code>, <code>purpose</code>
+</td>
+<td>
+SPECIFIED IN SAP; PRIMARY OUTCOME MEASURE
+</td>
+<td>
+Requested by a Member State; post hoc for PICO 5; requested by an HTA assessor
+</td>
+<td>
+Prespecified or not, multiplicity-controlled or not, and who asked: required per analysis by the JCA guidance. ARS has four reason terms, none of them HTA
+</td>
+<td>
+<span class="tag t-stretch">stretch</span>
+</td>
+</tr>
+<tr>
+<td>
+<code>OperationResult</code>, <code>ResultGroup</code>
+</td>
+<td>
+n (%) per cell
+</td>
+<td>
+RR, CI, p per PICO × subgroup × cut
+</td>
+<td>
+Identifiers tying each number to its PICO, cut and template: for navigation, and for a model to cite a record instead of a page
+</td>
+<td>
+<span class="tag t-fit">fits</span>
+</td>
+</tr>
+<tr>
+<td>
+Programming code, <code>context</code>
+</td>
+<td>
+The R script
+</td>
+<td>
+Code per analysis, as JCA Appendix D.3 asks
+</td>
+<td>
+The code and its environment: reproducibility for the sponsor, legibility for an HTA assessor who cannot run it
+</td>
+<td>
+<span class="tag t-fit">fits</span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="src-note">
+<p>[1] HTACG JCA dossier guidance (28 Nov 2024), App. B.2 reporting checklist for evidence syntheses: software and version, code for non-standard methods, input data and derivation, MCMC chains and convergence, digitisation method, model and covariate selection, overlap and effective sample size. [2] HTACG guidance on multiplicity, subgroup and sensitivity analyses (10 Jun 2024): for each analysis, prespecified or not, multiplicity control, and by whom it was deemed necessary. ARS v1.0 classes and terms checked against the published LinkML model (19 Apr 2024). “Fits”: covered as is. “Stretch”: a mechanism exists; the vocabulary does not.</p>
+</div>
+<aside class="notes">
+<ul>
+<li>Read the table left to right: Orla’s example, the HTA equivalent, and then the only question that matters for this session: what would need to be recorded, and who would read it.</li>
+<li>The right-hand column is not invented: it is what the JCA dossier guidance already asks for in prose. The question is whether it lives in a Word appendix or in the result record.</li>
+<li>“Stretch” rows: ARS has the mechanism (categories, reason codes, reference documents, a free-text dataset name) but no shared terminology for PICO, HTA body, comparator source or synthesis assumptions. Analysis.reason offers SPECIFIED IN PROTOCOL, SPECIFIED IN SAP, DATA DRIVEN and REQUESTED BY REGULATORY AGENCY, extensible through TerminologyExtension.</li>
+<li>Terminology guard: “ARD” is the flat dataset extracted from OperationResult records; say “result records” when a CDISC person is in the room.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="what-ars-has-no-word-for-yet" class="slide level2 smaller">
+<h2>What ARS Has No Word For Yet</h2>
+<div class="card-row">
+<div class="card orange">
+<p><span class="card-title">Criteria for execution</span></p>
+<p>“PT only if incidence ≥ 5%.” “Subgroup curve only if the interaction is significant.” The rule tests a <em>result</em>, not a record, so no where-clause can express it. The template decides what exists.</p>
+<p><strong>Record the rule, or only its outcome?</strong></p>
+</div>
+<div class="card purple">
+<p><span class="card-title">Ingredient provenance</span></p>
+<p>A digitised curve, an event rate copied from a publication, an expert’s prior. ARS can name a source document; it cannot say how the ingredient was made. The first JCA’s error lived exactly here.</p>
+<p><strong>Record the recipe for the ingredient too?</strong></p>
+</div>
+</div>
+<div class="card-row" style="margin-top: 0.7em;">
+<div class="card green">
+<p><span class="card-title">Where a number goes</span></p>
+<p>ARS knows a result’s origin and its display. A survival parameter that feeds a cost-effectiveness model has a destination, not a table cell.</p>
+<p><strong>Record where a number goes, or only where it came from?</strong></p>
+</div>
+<div class="card">
+<p><span class="card-title">Environment and change</span></p>
+<p>One field for the language and version. Version numbers that say <em>which</em>, never <em>what changed</em>. A delta dossier is a diff nobody can compute.</p>
+<p><strong>Record the environment nobody re-runs? Record the diff?</strong></p>
+</div>
+</div>
+<div class="big-statement" style="font-size: 1.35em;">
+<p>Record as much as possible? How much is too much, and for whom? <span class="sub">Each field on this slide costs a statistician time now; the benefit lands later, and often with someone else. That trade is the discussion.</span></p>
+</div>
+<aside class="notes">
+<ul>
+<li>Position of the slide: these four are the concepts ARS v1.0 has no class for, as opposed to the previous slide’s mechanisms that exist but lack vocabulary. Tooling for some of them exists outside ARS (the hta-pharma packages encode AMNOG criteria; survival packages hand parameters to models), which is why this is a discussion, not a gap list: nothing here is integrated into the standard.</li>
+<li>Criteria: the G-BA and JCA rules (10 patients and 10 events, interaction p &lt; 0.05, incidence ≥ 5%) all test results, not records.</li>
+<li>Provenance: the tarlatamab MAIC code reads a file literally called pseudo_ipd.csv. Nothing in the dossier’s metadata says how that file was made. The tovorafenib error was a switched event rate copied from a publication.</li>
+<li>Environment: this row feeds Prompt 3 in the discussion. The version question feeds the delta-dossier reality: a JCA report may not exist when the German dossier is due (EFSPI 2025).</li>
+<li>Hand over to the “who asks” slide: before deciding what to record, look at who is asking for anything at all.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="who-asks-for-data-and-code-today" class="slide level2 smaller">
+<h2>Who Asks for Data and Code Today</h2>
+<table class="cmp-table dense">
+<thead>
+<tr>
+<th style="width:14%">
+Body
+</th>
+<th style="width:43%">
+Asked for today
+</th>
+<th>
+Direction of travel
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+FDA
+</td>
+<td>
+SDTM, ADaM, define.xml required; source code for ADaM and primary and secondary efficacy outputs expected <sup class="cite">[1]</sup>
+</td>
+<td>
+Dataset-JSON consulted in 2025, not yet adopted; the Data Standards Catalog lists Define-XML only, no ARM, no ARS <sup class="cite">[2]</sup>
+</td>
+</tr>
+<tr>
+<td>
+EMA
+</td>
+<td>
+Nothing required for a marketing application. Voluntary pilot since Sept 2022, 13 procedures: SDTM, ADaM, programs, ARM “highly recommended” <sup class="cite">[3]</sup>
+</td>
+<td>
+Pilot extended “until further notice”; the network workplan plans a <strong>transition to systematic submission</strong> of clinical study data in 2026–2028, alongside the revised EU pharmaceutical legislation <sup class="cite">[4]</sup>
+</td>
+</tr>
+<tr>
+<td>
+EU JCA
+</td>
+<td>
+Documents per PICO; no individual patient data; code only for non-standard methods, and in practice as PDF <sup class="cite">[5]</sup>
+</td>
+<td>
+AI principles for dossiers, July 2026: every AI-assisted step documented, prompts kept, a human responsible <sup class="cite">[6]</sup>
+</td>
+</tr>
+<tr>
+<td>
+G-BA, NICE
+</td>
+<td>
+G-BA: full CSRs, readable code when deviating from standard software, code plus input data for indirect comparisons. NICE: a fully executable economic model with full code access <sup class="cite">[7,8]</sup>
+</td>
+<td>
+G-BA template (Nov 2025) cross-references the EU dossier; NICE position statement on AI in evidence generation (Aug 2024) <sup class="cite">[7,9]</sup>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="big-statement" style="margin-top: 0.4em; font-size: 1.35em;">
+<p>Nobody asks for ARS: not one regulator, not one HTA assessor. And no HTA assessor has the data. <span class="sub">FDA can re-execute a sponsor’s analysis and EMA is heading there; no HTA body can, by design. So “reproducible” cannot mean at the G-BA what it means at the FDA. What is left is legibility: what was done, for whom, against what, at which cut.</span></p>
+</div>
+<div class="src-note">
+<p>[1] FDA Study Data Technical Conformance Guide v6.2.1 (Jun 2026) §4.1.2.10. [2] FDA Data Standards Catalog v11.0 (Mar 2025); Federal Register, 9 Apr 2025 (Dataset-JSON request for comments). [3] EMA, clinical study data pilot Q&amp;A (EMA/658116/2022, rev. 20 Jan 2026) §3.3–3.4; NDSG annual report 2025 (Jan 2026). [4] EMA Network Data Steering Group workplan 2026–2028 (Feb 2026); EMA Programming Document 2026–28. [5] HTACG JCA dossier guidance (28 Nov 2024) App. B.2, D.3; published JCA dossiers Jun–Sep 2026. [6] HTACG, general principles on the use of AI in JCA dossiers (adopted 15 Jul 2026). [7] G-BA Module 4 template (18 Nov 2025) and dossier format document (8 Apr 2026). [8] NICE technology appraisal manual PMG36 §5.5.15 (updated 31 Mar 2026). [9] NICE ECD11 (15 Aug 2024).</p>
+</div>
+<aside class="notes">
+<ul>
+<li>FDA wording (Study Data Technical Conformance Guide v6.2.1, June 2026): “Sponsors should provide the source code used to create all ADaM datasets, tables, and figures associated with primary and secondary efficacy analyses.” The Data Standards Catalog v11.0 lists Define-XML; neither ARM nor ARS appears in the Catalog or the Guide.</li>
+<li>EMA: no general requirement today; the clinical-study-data pilot uses CDISC SDTM/ADaM plus programs and “highly recommends” ARM; 13 procedures selected by December 2025 (NDSG 2025 annual report). The NDSG workplan (Feb 2026) says the pilot “will transition to systematic submission of clinical study data for CAPs” in 2026–2028, in light of the revised pharmaceutical legislation, expected to apply from around 2028. A stated plan, not yet a requirement.</li>
+<li>PMDA, for completeness: SDTM and ADaM required; programs for key analyses required but need not be executable; ARM “preferable” in define. It is the regulator that pushes ARM hardest.</li>
+<li>Appendix D.3 in the four published dossiers: one set of code removed before publication; one set of 29 print-to-PDF files with no extractable text; one R snippet with a sessionInfo(); SAS programs that read ADaM datasets no HTA assessor will see.</li>
+<li>The asymmetry to name out loud: by 2028 the regulator may hold ADaM and programs for every centrally authorised product; the JCA runs in parallel on the same trial and receives PDFs. How long does that hold, and which side moves first?</li>
+<li>HTACG AI principles (adopted 15 Jul 2026): developers stay accountable; no step “fully automated without a human being ultimately responsible”; document tool name, version, date, developer and purpose for every AI-assisted step; “all prompts used in AI tools are recorded and made available if requested”.</li>
+<li>Nobody asks for renv lockfiles, containers or package manifests. That is Prompt 3 in the discussion.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="where-this-leaves-us" class="slide level2 smaller">
+<h2>Where This Leaves Us</h2>
+<div class="card-row">
+<div class="card green">
+<p><span class="card-title">Re-use is highest in HTA</span></p>
+<p>One recipe, many diners, many cuts. A machine-readable recipe pays back on every re-cook, and nowhere is it re-cooked more.</p>
+</div>
+<div class="card">
+<p><span class="card-title">A shared standard is what makes shared tooling possible</span></p>
+<p>Thousands of records to navigate, trace and diff. Sponsors need that for QC, HTA assessors to find what they asked for. Nobody builds a viewer for an in-house format.</p>
+</div>
+<div class="card orange">
+<p><span class="card-title">Nobody has asked, and every field has a cost</span></p>
+<p>No regulator or HTA assessor names ARS. Each field costs a statistician time now; the benefit lands later, and often elsewhere: a later dossier, a partner, an HTA assessor.</p>
+</div>
+</div>
+<div class="big-statement">
+<p>What would we want to achieve, and what would it cost to capture? <span class="sub">Reproducibility, efficiency to reproduce, or legibility for a reviewer and for a machine: pick the goal before picking the metadata. Over to the discussion.</span></p>
+</div>
+<aside class="notes">
+<ul>
+<li>Card 1 answers “why would HTA benefit more”: not because HTA analyses are harder, but because the same analysis is re-specified more times, by more parties, on more deadlines. Re-use is where a specification pays back.</li>
+<li>Card 2: a standard is not only about reproducing a number, it is what lets a common navigator exist. Sponsors already need one internally to QC thousands of outputs; HTA assessors need one to find the analysis they asked for. Keep it as a question if challenged: would an HTA assessor use a viewer the sponsor built, and should they?</li>
+<li>Card 3 pre-empts the expert’s question (“why a standard and not a good internal format?”) and names who pays: the cost falls on the sponsor’s statistician; the benefit on a future team, a partner or an HTA assessor. That externality is why voluntary standards stall.</li>
+<li>Transition slide into the discussion section. Do not answer the question; hand it over.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="market_access_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="market_access_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="market_access_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="market_access_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="market_access_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="market_access_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="market_access_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="market_access_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="market_access_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="market_access_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'slide',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    
+
+</body></html>
