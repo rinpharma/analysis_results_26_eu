@@ -1,0 +1,414 @@
+## Same Recipe, New Kitchen, New Diners {.smaller}
+
+<!--
+  Use case for market access  (10 min — Gregory)
+  Included from main_deck.qmd via {{< include market_access.qmd >}}.
+  No YAML front matter on purpose: front matter in an included file overrides the main deck title.
+  Speaker notes (::: {.notes}) carry talking points and sources; press S in the deck to open them.
+-->
+
+::: {.concept-strip}
+::: {.item}
+**ARS: the recipe**
+populations, subsets, groupings, methods, operations as data
+:::
+::: {.item .green}
+**ARD: the meal**
+the result records an executed recipe yields
+:::
+::: {.item .orange}
+**LinkML: the template**
+what a valid recipe looks like
+:::
+:::
+
+::: {.card-row .compact}
+::: {.card}
+<span class="card-title">The CSR kitchen cooks for one diner: the regulator</span>
+
+One base ingredient, the trial data (SDTM, ADaM, CSR). One menu, written by the sponsor in the SAP. One meal, the CSR tables.
+:::
+::: {.card .orange}
+<span class="card-title">Market access serves a table of HTA assessors</span>
+
+Each with their own tastes: a comparator, a population, a template. Same base ingredient, plus ingredients the sponsor does not grow: published aggregates from a literature review, real-world data, registries, expert elicitation. The recipe has to adapt, not just re-run.
+:::
+:::
+
+::: {.big-statement}
+In the first published Joint Clinical Assessment, the HTA assessors could not reproduce most of the naive safety comparisons.
+<span class="sub">The error was in an ingredient: event rates extracted from the comparator's publication had been switched between two outcomes. It was caught because an HTA assessor tried to recompute the numbers from the dossier and could not. <sup class="cite">[1]</sup></span>
+:::
+
+::: {.src-note}
+[1] Joint Clinical Assessment Report, Tovorafenib, v1.0, endorsed by the HTA Coordination Group 30 Apr 2026, published 9 Jun 2026, Appendix D.2, request 4 (p. 138): "The assessors were not able to reproduce the effect estimates shown for the naïve comparisons for most of the safety outcomes"; developer's response: "the event rates for these two outcomes in the Bouffet 2023 study had been switched around in the analyses". health.ec.europa.eu/publications/joint-clinical-assessment-report-tovorafenib-ojemda_en
+:::
+
+::: {.notes}
+- Continuity: one strip, no re-definition. Orla's stack table already reconciles the terminology: "ARD" is not an ARS class; results are OperationResult records inside the reporting event, and "ARD" is the flat dataset the R ecosystem extracts from them. Say "result records" when precision matters.
+- Why ARS exists, in one breath: twenty years ago we standardised what goes in (SDTM, ADaM, define.xml) and the document that comes out; the analysis in between stayed in code and its results in prose. ARS and ARD are the missing middle.
+- The reproduction story: tovorafenib JCA, request 4 of the second request for additional information. Serious AE, discontinuation due to AE and interruption due to AE could not be reproduced; severe AE could. The developer found the Bouffet 2023 event rates for two outcomes switched, corrected them and ran additional quality checks. Note for the discussion: the failure was in an external ingredient, not in the trial data, and it was found by hand.
+- Show of hands, 15 seconds: "Who has worked on an HTA dossier? Keep it up if you wrote code for one." Calibrates depth, and tells you whom to call on in the discussion.
+:::
+
+## Two Asks of the Same Base Ingredient {.smaller}
+
+::: {.diagram-mid}
+```{mermaid}
+%%{init: {'theme':'default', 'themeVariables': {'fontSize':'16px', 'fontFamily':'Source Sans Pro, arial'}}}%%
+flowchart LR
+  T["<b>Base ingredient</b><br/>trial data · SDTM, ADaM, CSR"]
+  X["<b>Added ingredients</b><br/>literature aggregates, RWD,<br/>registries, expert elicitation"]
+  subgraph HTA["HTA track"]
+    direction LR
+    H1["<b>EU JCA</b><br/>relative effectiveness and<br/>safety per PICO, clinical only"] --> H2["<b>National HTA</b><br/>added benefit, cost-<br/>effectiveness, budget impact"] --> H3(["<b>Price, reimbursement,</b><br/><b>patient access</b>"])
+  end
+  subgraph REG["Regulatory track"]
+    direction LR
+    R1["<b>EMA</b><br/>benefit–risk on quality,<br/>safety, efficacy"] --> R2(["<b>Marketing</b><br/><b>authorisation</b>"])
+  end
+  T --> R1
+  T --> H1
+  X --> H1
+  classDef reg fill:#eff6ff,stroke:#1e3a8a,color:#1a1a1a;
+  classDef hta fill:#fef5e7,stroke:#e67e22,color:#1a1a1a;
+  classDef ev fill:#f0fdf4,stroke:#16a34a,color:#1a1a1a;
+  classDef ext fill:#faf5ff,stroke:#7c3aed,color:#1a1a1a;
+  class R1,R2 reg;
+  class H1,H2,H3 hta;
+  class T ev;
+  class X ext;
+```
+:::
+
+<table class="cmp-table dense">
+<thead>
+<tr><th style="width:17%"></th><th style="width:36%">Regulator asks</th><th>HTA body asks</th></tr>
+</thead>
+<tbody>
+<tr><td>The question</td><td>Do benefits outweigh risks for the indication?</td><td>How much better than what we use today, for whom, and is it worth the price?</td></tr>
+<tr><td>Comparator, population</td><td>The comparator justified at design; the trial population</td><td>The local standard of care; the population the local pathway treats, often a subpopulation</td></tr>
+<tr><td>Ingredients</td><td>Trial data; external evidence is the exception</td><td>Trial data re-cut per template, plus literature aggregates, real-world data, expert elicitation, costs and utilities: assembled by the sponsor, often not owned</td></tr>
+<tr><td>Output</td><td>One authorisation, one label</td><td>One dossier per body: added-benefit category, cost per QALY, negotiated price</td></tr>
+</tbody>
+</table>
+
+::: {.src-note}
+Regulatory track: once, EU-wide. HTA track: JCA in parallel with the EMA procedure, then national HTA, pricing and reimbursement country by country (EU mean 597 days from authorisation to availability, EFPIA W.A.I.T. 2025). Reg. (EU) 2021/2282, Recital 4, Art. 1(2), 2(6); Eichler 2010.
+:::
+
+::: {.notes}
+- Purpose of the slide: enough context for the discussion, not an HTA course. The two tracks read the same base ingredient and ask different questions; the HTA question forces new analyses and new ingredients.
+- Regulatory: benefit-risk on quality, safety and efficacy; the comparator is the one the sponsor justified at design, placebo or active. HTA: relative effectiveness against the comparator(s) that matter in each health system, plus national economic and organisational domains.
+- The Regulation's Recital 4 names nine HTA domains: four clinical (health problem and current use, technical characteristics, relative safety, relative clinical effectiveness) and five non-clinical (cost and economic evaluation, ethical, organisational, social, legal). The JCA covers the four clinical domains only (Art. 2(6)); the five non-clinical domains and all pricing and reimbursement decisions stay national (Art. 1(2), Recital 14).
+- Timing: the JCA runs in parallel with the centralised procedure (dossier due at the latest 45 days before the envisaged CHMP opinion, Art. 10(1)); the report must be endorsed no later than 30 days after the Commission decision granting the authorisation (Art. 11(1)(a)) and is published after a procedural check; observed lag so far 40 to 69 days. National HTA and pricing follow the authorisation, and that is where most of the delay to access sits: EFPIA W.A.I.T. 2025 (published May 2026, medicines authorised 2021–2024) gives an EU mean of 597 days from authorisation to availability, median 532, ranging from 56 days in Germany to 1,201 in Romania.
+- Value proposition: in Germany the sponsor must demonstrate added benefit (Zusatznutzen) against the appropriate comparator therapy, on the basis of evidence it submits (§ 35a SGB V); in England the economic case is judged against NICE's cost-per-QALY range, £25,000 to £35,000 since April 2026 (manual PMG36 §6.3). Both are claims the sponsor has to evidence, on top of the regulatory case.
+- Eichler et al. 2010 is the classic statement of the split: regulators license when benefits outweigh risks; payers decide on health benefit relative to existing treatment options.
+:::
+
+## The EU Joint Clinical Assessment in One Picture {.smaller}
+
+::: {.columns}
+::: {.column width="46%"}
+```{mermaid}
+%%{init: {'theme':'default', 'themeVariables': {'fontSize':'13px', 'fontFamily':'Source Sans Pro, arial'}}}%%
+timeline
+    title Regulation (EU) 2021/2282 roll-out
+    Jan 2025 : New active substances for cancer
+             : Advanced therapy medicinal products
+    Jan 2028 : Orphan medicines
+    Jan 2030 : All other centrally authorised medicines
+```
+:::
+::: {.column width="54%"}
+<p><strong>How it runs <sup class="cite">[1]</sup></strong></p>
+
+- Member States' PICOs are consolidated into one scope with several PICOs; one **JCA dossier** is filed in parallel with the EMA application
+- A published report on relative effectiveness and safety, **no value judgement, no price**; national bodies "give due consideration", then decide benefit, price and reimbursement
+- Commission tracker, extract of **10 Sep 2026**: 23 started since January 2025, 4 published, 16 running, 3 discontinued (two for failing the Article 9 dossier requirements); published reports carried **1, 7, 8 and 12 PICOs** <sup class="cite">[2]</sup>
+
+<p><strong>Key clinical evidence in the dossier <sup class="cite">[3]</sup></strong></p>
+
+- Per PICO: efficacy, safety, all subgroups with interaction tests, AEs by SOC and PT; each analysis flagged as prespecified or not, multiplicity-controlled or not, and who requested it
+- Where no head-to-head trial answers a PICO: **indirect comparisons** (Bucher, NMA, MAIC, STC) with their input data, model choices and convergence checks
+- CSRs, protocols and analysis plans as appendices; **no** individual patient data; code only "if the analyses and corresponding calculations cannot be described by a specific standard method"
+:::
+:::
+
+::: {.src-note}
+[1] Regulation (EU) 2021/2282, Art. 7(2), 8, 9(1), 11, 13. [2] European Commission, JCA tracker (ongoing, completed, discontinued), data extracted 10 Sep 2026; published JCA reports: lurbinectedin (1 PICO), tarlatamab (7), tovorafenib (8), onasemnogene abeparvovec (12 in the final scope). [3] HTACG, guidance on the JCA dossier template for medicinal products (adopted 28 Nov 2024), App. A.2, A.3, B.2, D.3, D.5; guidance on multiplicity, subgroup and sensitivity analyses (10 Jun 2024).
+:::
+
+::: {.notes}
+- JCA is *joint* but not *binding*: it replaces the clinical part of national assessments in spirit, not the national decision. "No value judgement" is Article 9(1).
+- The dossier template asks for interaction p-values for all subgroup analyses, full results where p < 0.05 or where a Member State asked, and all subgroup results in Appendix A.3. Adverse events by SOC/PT at ≥5% incidence in Appendix A.2, serious and severe regardless of incidence. The multiplicity guidance requires, for each analysis, whether it was prespecified, whether multiplicity was controlled, and who deemed an unplanned analysis necessary (sponsor, regulator, HTA body).
+- Indirect comparisons: dossier section 4.3.4 and Appendix D.5 (evidence-synthesis reports with protocols and SAPs); the reporting checklist in Appendix B.2 asks for software and version, code for non-standard methods, input data with derivation, MCMC chains, burn-in, iterations and convergence, the digitisation method for Kaplan-Meier curves, model and covariate selection, overlap and effective sample size, and results with and without population adjustment.
+- Appendix B.2: "the HTD is not required to provide individual patient data, only aggregated data such as effect estimates with standard errors are required". Patient listings are supplied only on an Article 11(2) request and are not published. Appendix D.3 asks for code and output only for non-standard methods. So: documents and, conditionally, code. No datasets.
+- Tracker, 10 Sep 2026: 16 ongoing, 4 completed, 3 discontinued; catequentinib and the TIL therapy Tacquell were discontinued on 22 Jun 2026 because the dossier "fails to meet the requirements laid down in Article 9(2), (3) and (4)"; sasanlimab because the marketing application was withdrawn. Completed: tovorafenib (8 PICOs, only 1 assessable), tarlatamab (7), lurbinectedin (1), onasemnogene abeparvovec IT (12 PICOs across 6 populations in the final scope of 26 Feb 2026; several without comparative data).
+- Three of the four completed assessments rested on indirect comparisons: unanchored MAIC with an effective sample size of 5.82 (tovorafenib), Bayesian NMA plus MAIC on digitised curves (tarlatamab), anchored and unanchored MAIC plus ML-NMR (onasemnogene).
+- Article 13(1)(d): Member States may not re-request at national level what was submitted at EU level. HTACG Guiding Principles on Data Transparency (adopted 14 May 2026): trial results and evidence-synthesis methods are not commercially confidential; the dossier and its appendices are published, with redactions.
+:::
+
+## What HTA Analytics Look Like in Practice {.smaller}
+
+::: {.card-row .compact}
+::: {.card .orange}
+<span class="card-title">Volume</span>
+
+- German benefit dossiers grew from about **750 to 3,500 pages** on average after the 2020 template change; outliers reach 20,000 <sup class="cite">[1]</sup>
+- Mandatory subgroups (sex, age, severity, region, stratification factors) for every endpoint <sup class="cite">[2]</sup>
+- Safety by SOC and PT with RR, CI and p, repeated per subgroup: one safety annex ran to **926 pages** <sup class="cite">[3]</sup>
+- IQWiG sets aside **33% of AE analyses and 73% of subgroup categories** submitted <sup class="cite">[4]</sup>
+:::
+::: {.card .green}
+<span class="card-title">Ingredients that are not trial data: a meal rebuilt from its photograph</span>
+
+- Comparators the trial never had: literature aggregates, external controls from real-world data and registries, expert elicitation where data are absent <sup class="cite">[5]</sup>
+- Survival curves digitised from a PDF and turned back into patients who never existed, then fed to NMA or population adjustment <sup class="cite">[6]</sup>
+- **Three of the first four** published JCAs rest on indirect comparisons; one on an effective sample size below six <sup class="cite">[7]</sup>
+- Template rules decide what exists: 10 patients and 10 events per subgroup, interaction p below 0.05, incidence above 5% <sup class="cite">[2,8]</sup>
+:::
+::: {.card .purple}
+<span class="card-title">Outputs that are not tables</span>
+
+- Extrapolation parameters, transition probabilities and utilities feed a cost-effectiveness model; NICE requires it fully executable, and its HTA assessors re-analyse it in **93 of 100** appraisals <sup class="cite">[9,10]</sup>
+- Countries file on different data cuts. Nobody requires an index of everything produced; the company needs one to know the totality of its own evidence
+- A dossier is read by HTA assessors who never see the patient data
+:::
+:::
+
+::: {.src-note}
+[1] Schweitzer et al., Eur J Health Econ 2024;25(5): Modules 1–4 from 750 to 3,500 pages on average, "in individual cases 20,000 to even 40,000 pages". [2] G-BA Module 4 dossier template, version 18 Nov 2025, §4.2.5.5, §4.3.1.3. [3] G-BA, empagliflozin Modul 4A Anhang 4-G, 28 Mar 2022, 926 pages; nintedanib Anhang 4-G, Feb 2025, 349 pages. [4] Schweitzer et al. 2024 (vfa, Dec 2022: 77% of submitted analyses not considered). [5] HTACG methodological guideline for quantitative evidence synthesis (8 Mar 2024); NICE DSU TSD 26 (expert elicitation). [6] Guyot et al., BMC Med Res Methodol 2012;12:9; HTACG practical guideline (8 Mar 2024). [7] Published JCA reports, Jun–Sep 2026 (tovorafenib ESS 5.82). [8] HTACG JCA dossier guidance (28 Nov 2024), App. A.2; IQWiG General Methods 8.0 §10.3.9. [9] NICE technology appraisal manual PMG36 §5.5.15. [10] Carroll et al., Value Health 2017;20(6): 100 single technology appraisals, exploratory analyses of the company's model.
+:::
+
+::: {.notes}
+- The German numbers are the strongest case for "structure at scale": the dossier grew 4 to 5 times after 2020, mostly AE and subgroup analyses, and IQWiG disregards a third of AE analyses and nearly three quarters of subgroup categories. Around €800k to €1m and 12 months per dossier (vfa 2022; Schweitzer 2024).
+- Macabeo et al. (PharmacoEconomics Open 2024;8(1)): 22% of 543 oncology HTA reports across five countries used an indirect comparison; 30% of those were accepted and about half were left unclear. The JCA experience so far is harsher: tovorafenib's MAIC matched on an effective sample size of 5.82.
+- The middle column is where ARS, as designed, stops applying: the ingredients are not ADaM and the methods carry assumptions (effect modifiers, weights, priors) that a "method + operation" model does not capture. The photograph line is the one metaphor extension worth making: pseudo-IPD reconstruction really is recovering a dish from a picture of it.
+- Right column: the model is the consumer of many results, and the HTA assessor re-analyses the model while never seeing patient data. The data-cut point is about the company's own sanity: a filing in one country may rest on interim analysis 2, in another on the final cut; efficient production and an accurate index are for the sponsor to know what it has produced, not because anyone mandates it.
+:::
+
+## The Analysis Space Is Combinatorial {.smaller}
+
+::: {.factor-row}
+::: {.factor style="flex: 1.45;"}
+<span class="f-title">Analysis families</span>
+
+- Descriptive: baseline, disposition, drug use before, during, after
+- Efficacy, PRO, quality of life
+- Safety: overall, serious, grade ≥3, **by SOC and PT**
+- Subgroups, interaction tests, sensitivity
+- Model inputs: transition probabilities, PRO-mapped utilities
+
+<span class="f-who">SAP and each HTA template</span>
+
+:::
+
+<span class="times">×</span>
+
+::: {.factor .f-orange}
+<span class="f-title">Populations</span>
+
+- Label population
+- Subpopulations along the **local pathway**: line, biomarker, prior therapy, each with its **own comparator**
+
+<span class="f-who">Member States' PICOs, national pathways</span>
+
+:::
+
+<span class="times">×</span>
+
+::: {.factor .f-green style="flex: 1.35;"}
+<span class="f-title">Comparators and their ingredients</span>
+
+- Trial control arm
+- Standard of care per country: **indirect comparison** on literature aggregates, digitised curves
+- External controls: RWD, registries
+- Expert elicitation where data are absent
+
+<span class="f-who">the HTA assessor, not the sponsor</span>
+
+:::
+
+<span class="times">×</span>
+
+::: {.factor .f-purple style="flex: 0.85;"}
+<span class="f-title">Data cut-offs</span>
+
+- Regulatory cut
+- Later cuts for **each region's** timing
+- Different countries file on different cuts
+
+<span class="f-who">submission calendars</span>
+
+:::
+
+<span class="times">×</span>
+
+::: {.factor .f-red style="flex: 0.85;"}
+<span class="f-title">Templates</span>
+
+- EU JCA dossier
+- G-BA Module 4
+- NICE, HAS, AIFA, ...
+- Own effect measures, thresholds, layouts
+
+<span class="f-who">each HTA body</span>
+
+:::
+:::
+
+::: {.big-statement style="font-size: 1.25em; margin-top: 0.5em;"}
+= thousands of result records, and every one is a PICO plus an analysis: population, intervention, comparator, outcome.
+<span class="sub">ARS names the same ideas differently: analysis set, grouping, data subset, method. Same recipe structure, different vocabulary: aligning it, and extending it where HTA has words ARS does not, is the next two slides.</span>
+:::
+
+::: {.notes}
+- Message: the volume is not exotic analyses, it is ordinary analyses multiplied by factors the sponsor does not control. That is exactly the situation a specification-driven approach is meant for.
+- Populations and comparators are coupled: a subpopulation defined by the local pathway usually implies a different comparator, so a new PICO. Subgroups within a PICO do not create new PICOs (HTACG scoping guidance, Nov 2024).
+- Model inputs are analyses too: parametric survival fits for extrapolation, transition probabilities, utilities from mapping PRO instruments to EQ-5D with country value sets. They are produced from the same ADaM and rarely appear in a CSR.
+- The waste argument cuts both ways: IQWiG sets aside 73% of subgroup categories (Schweitzer 2024). Own it: automation makes the waste cheaper, not smaller. Navigability is the way out.
+- Ask the room: how much of your HTA programming is genuinely new analysis, versus the same analysis with a different population, comparator or threshold?
+:::
+
+## What ARS Names, and What HTA Would Add {.smaller}
+
+<table class="cmp-table dense xdense">
+<thead>
+<tr><th style="width:15%">ARS class</th><th style="width:15%">In the earlier AE table</th><th style="width:25%">In the HTA setting</th><th>What to record, for whom <sup class="cite">[1,2]</sup></th><th style="width:8%"></th></tr>
+</thead>
+<tbody>
+<tr><td><code>ReportingEvent</code></td><td>The CSR</td><td>One dossier per body, data cut and template version</td><td>Which body, cut and template: to find the right dossier, and the delta between two</td><td><span class="tag t-fit">fits</span></td></tr>
+<tr><td><code>AnalysisSet</code>, <code>DataSubset</code></td><td><code>SAFFL = "Y"</code>, <code>TRTEMFL = "Y"</code></td><td>The PICO population, often a subpopulation of the label; event subsets unchanged</td><td>Which PICO the population answers: so the HTA assessor can find the analysis they asked for</td><td><span class="tag t-fit">fits</span></td></tr>
+<tr><td><code>GroupingFactor</code></td><td><code>TRTA</code>; SOC and PT, data-driven</td><td>Treatment vs the local comparator; effect-modifier subgroups</td><td>The comparator's identity and where its data came from: trial arm, publication, registry, elicitation</td><td><span class="tag t-stretch">stretch</span></td></tr>
+<tr><td><code>AnalysisMethod</code>, <code>Operation</code></td><td>COUNT, PERCENT</td><td>RR with CI and p; weighted HR after matching; network meta-analysis</td><td>The assumptions behind the estimate: matched effect modifiers, weights and effective sample size, priors, convergence. The JCA checklist asks for exactly these</td><td><span class="tag t-stretch">stretch</span></td></tr>
+<tr><td><code>Analysis.reason</code>, <code>purpose</code></td><td>SPECIFIED IN SAP; PRIMARY OUTCOME MEASURE</td><td>Requested by a Member State; post hoc for PICO 5; requested by an HTA assessor</td><td>Prespecified or not, multiplicity-controlled or not, and who asked: required per analysis by the JCA guidance. ARS has four reason terms, none of them HTA</td><td><span class="tag t-stretch">stretch</span></td></tr>
+<tr><td><code>OperationResult</code>, <code>ResultGroup</code></td><td>n (%) per cell</td><td>RR, CI, p per PICO × subgroup × cut</td><td>Identifiers tying each number to its PICO, cut and template: for navigation, and for a model to cite a record instead of a page</td><td><span class="tag t-fit">fits</span></td></tr>
+<tr><td>Programming code, <code>context</code></td><td>The R script</td><td>Code per analysis, as JCA Appendix D.3 asks</td><td>The code and its environment: reproducibility for the sponsor, legibility for an HTA assessor who cannot run it</td><td><span class="tag t-fit">fits</span></td></tr>
+</tbody>
+</table>
+
+::: {.src-note}
+[1] HTACG JCA dossier guidance (28 Nov 2024), App. B.2 reporting checklist for evidence syntheses: software and version, code for non-standard methods, input data and derivation, MCMC chains and convergence, digitisation method, model and covariate selection, overlap and effective sample size. [2] HTACG guidance on multiplicity, subgroup and sensitivity analyses (10 Jun 2024): for each analysis, prespecified or not, multiplicity control, and by whom it was deemed necessary. ARS v1.0 classes and terms checked against the published LinkML model (19 Apr 2024). "Fits": covered as is. "Stretch": a mechanism exists; the vocabulary does not.
+:::
+
+::: {.notes}
+- Read the table left to right: Orla's example, the HTA equivalent, and then the only question that matters for this session: what would need to be recorded, and who would read it.
+- The right-hand column is not invented: it is what the JCA dossier guidance already asks for in prose. The question is whether it lives in a Word appendix or in the result record.
+- "Stretch" rows: ARS has the mechanism (categories, reason codes, reference documents, a free-text dataset name) but no shared terminology for PICO, HTA body, comparator source or synthesis assumptions. Analysis.reason offers SPECIFIED IN PROTOCOL, SPECIFIED IN SAP, DATA DRIVEN and REQUESTED BY REGULATORY AGENCY, extensible through TerminologyExtension.
+- Terminology guard: "ARD" is the flat dataset extracted from OperationResult records; say "result records" when a CDISC person is in the room.
+:::
+
+## What ARS Has No Word For Yet {.smaller}
+
+::: {.card-row}
+::: {.card .orange}
+<span class="card-title">Criteria for execution</span>
+
+"PT only if incidence ≥ 5%." "Subgroup curve only if the interaction is significant." The rule tests a *result*, not a record, so no where-clause can express it. The template decides what exists.
+
+**Record the rule, or only its outcome?**
+:::
+::: {.card .purple}
+<span class="card-title">Ingredient provenance</span>
+
+A digitised curve, an event rate copied from a publication, an expert's prior. ARS can name a source document; it cannot say how the ingredient was made. The first JCA's error lived exactly here.
+
+**Record the recipe for the ingredient too?**
+:::
+:::
+
+::: {.card-row style="margin-top: 0.7em;"}
+::: {.card .green}
+<span class="card-title">Where a number goes</span>
+
+ARS knows a result's origin and its display. A survival parameter that feeds a cost-effectiveness model has a destination, not a table cell.
+
+**Record where a number goes, or only where it came from?**
+:::
+::: {.card}
+<span class="card-title">Environment and change</span>
+
+One field for the language and version. Version numbers that say *which*, never *what changed*. A delta dossier is a diff nobody can compute.
+
+**Record the environment nobody re-runs? Record the diff?**
+:::
+:::
+
+::: {.big-statement style="font-size: 1.35em;"}
+Record as much as possible? How much is too much, and for whom?
+<span class="sub">Each field on this slide costs a statistician time now; the benefit lands later, and often with someone else. That trade is the discussion.</span>
+:::
+
+::: {.notes}
+- Position of the slide: these four are the concepts ARS v1.0 has no class for, as opposed to the previous slide's mechanisms that exist but lack vocabulary. Tooling for some of them exists outside ARS (the hta-pharma packages encode AMNOG criteria; survival packages hand parameters to models), which is why this is a discussion, not a gap list: nothing here is integrated into the standard.
+- Criteria: the G-BA and JCA rules (10 patients and 10 events, interaction p < 0.05, incidence ≥ 5%) all test results, not records.
+- Provenance: the tarlatamab MAIC code reads a file literally called pseudo_ipd.csv. Nothing in the dossier's metadata says how that file was made. The tovorafenib error was a switched event rate copied from a publication.
+- Environment: this row feeds Prompt 3 in the discussion. The version question feeds the delta-dossier reality: a JCA report may not exist when the German dossier is due (EFSPI 2025).
+- Hand over to the "who asks" slide: before deciding what to record, look at who is asking for anything at all.
+:::
+
+## Who Asks for Data and Code Today {.smaller}
+
+<table class="cmp-table dense">
+<thead>
+<tr><th style="width:14%">Body</th><th style="width:43%">Asked for today</th><th>Direction of travel</th></tr>
+</thead>
+<tbody>
+<tr><td>FDA</td><td>SDTM, ADaM, define.xml required; source code for ADaM and primary and secondary efficacy outputs expected <sup class="cite">[1]</sup></td><td>Dataset-JSON consulted in 2025, not yet adopted; the Data Standards Catalog lists Define-XML only, no ARM, no ARS <sup class="cite">[2]</sup></td></tr>
+<tr><td>EMA</td><td>Nothing required for a marketing application. Voluntary pilot since Sept 2022, 13 procedures: SDTM, ADaM, programs, ARM "highly recommended" <sup class="cite">[3]</sup></td><td>Pilot extended "until further notice"; the network workplan plans a **transition to systematic submission** of clinical study data in 2026–2028, alongside the revised EU pharmaceutical legislation <sup class="cite">[4]</sup></td></tr>
+<tr><td>EU JCA</td><td>Documents per PICO; no individual patient data; code only for non-standard methods, and in practice as PDF <sup class="cite">[5]</sup></td><td>AI principles for dossiers, July 2026: every AI-assisted step documented, prompts kept, a human responsible <sup class="cite">[6]</sup></td></tr>
+<tr><td>G-BA, NICE</td><td>G-BA: full CSRs, readable code when deviating from standard software, code plus input data for indirect comparisons. NICE: a fully executable economic model with full code access <sup class="cite">[7,8]</sup></td><td>G-BA template (Nov 2025) cross-references the EU dossier; NICE position statement on AI in evidence generation (Aug 2024) <sup class="cite">[7,9]</sup></td></tr>
+</tbody>
+</table>
+
+::: {.big-statement style="margin-top: 0.4em; font-size: 1.35em;"}
+Nobody asks for ARS: not one regulator, not one HTA assessor. And no HTA assessor has the data.
+<span class="sub">FDA can re-execute a sponsor's analysis and EMA is heading there; no HTA body can, by design. So "reproducible" cannot mean at the G-BA what it means at the FDA. What is left is legibility: what was done, for whom, against what, at which cut.</span>
+:::
+
+::: {.src-note}
+[1] FDA Study Data Technical Conformance Guide v6.2.1 (Jun 2026) §4.1.2.10. [2] FDA Data Standards Catalog v11.0 (Mar 2025); Federal Register, 9 Apr 2025 (Dataset-JSON request for comments). [3] EMA, clinical study data pilot Q&A (EMA/658116/2022, rev. 20 Jan 2026) §3.3–3.4; NDSG annual report 2025 (Jan 2026). [4] EMA Network Data Steering Group workplan 2026–2028 (Feb 2026); EMA Programming Document 2026–28. [5] HTACG JCA dossier guidance (28 Nov 2024) App. B.2, D.3; published JCA dossiers Jun–Sep 2026. [6] HTACG, general principles on the use of AI in JCA dossiers (adopted 15 Jul 2026). [7] G-BA Module 4 template (18 Nov 2025) and dossier format document (8 Apr 2026). [8] NICE technology appraisal manual PMG36 §5.5.15 (updated 31 Mar 2026). [9] NICE ECD11 (15 Aug 2024).
+:::
+
+::: {.notes}
+- FDA wording (Study Data Technical Conformance Guide v6.2.1, June 2026): "Sponsors should provide the source code used to create all ADaM datasets, tables, and figures associated with primary and secondary efficacy analyses." The Data Standards Catalog v11.0 lists Define-XML; neither ARM nor ARS appears in the Catalog or the Guide.
+- EMA: no general requirement today; the clinical-study-data pilot uses CDISC SDTM/ADaM plus programs and "highly recommends" ARM; 13 procedures selected by December 2025 (NDSG 2025 annual report). The NDSG workplan (Feb 2026) says the pilot "will transition to systematic submission of clinical study data for CAPs" in 2026–2028, in light of the revised pharmaceutical legislation, expected to apply from around 2028. A stated plan, not yet a requirement.
+- PMDA, for completeness: SDTM and ADaM required; programs for key analyses required but need not be executable; ARM "preferable" in define. It is the regulator that pushes ARM hardest.
+- Appendix D.3 in the four published dossiers: one set of code removed before publication; one set of 29 print-to-PDF files with no extractable text; one R snippet with a sessionInfo(); SAS programs that read ADaM datasets no HTA assessor will see.
+- The asymmetry to name out loud: by 2028 the regulator may hold ADaM and programs for every centrally authorised product; the JCA runs in parallel on the same trial and receives PDFs. How long does that hold, and which side moves first?
+- HTACG AI principles (adopted 15 Jul 2026): developers stay accountable; no step "fully automated without a human being ultimately responsible"; document tool name, version, date, developer and purpose for every AI-assisted step; "all prompts used in AI tools are recorded and made available if requested".
+- Nobody asks for renv lockfiles, containers or package manifests. That is Prompt 3 in the discussion.
+:::
+
+## Where This Leaves Us {.smaller}
+
+::: {.card-row}
+::: {.card .green}
+<span class="card-title">Re-use is highest in HTA</span>
+
+One recipe, many diners, many cuts. A machine-readable recipe pays back on every re-cook, and nowhere is it re-cooked more.
+:::
+::: {.card}
+<span class="card-title">A shared standard is what makes shared tooling possible</span>
+
+Thousands of records to navigate, trace and diff. Sponsors need that for QC, HTA assessors to find what they asked for. Nobody builds a viewer for an in-house format.
+:::
+::: {.card .orange}
+<span class="card-title">Nobody has asked, and every field has a cost</span>
+
+No regulator or HTA assessor names ARS. Each field costs a statistician time now; the benefit lands later, and often elsewhere: a later dossier, a partner, an HTA assessor.
+:::
+:::
+
+::: {.big-statement}
+What would we want to achieve, and what would it cost to capture?
+<span class="sub">Reproducibility, efficiency to reproduce, or legibility for a reviewer and for a machine: pick the goal before picking the metadata. Over to the discussion.</span>
+:::
+
+::: {.notes}
+- Card 1 answers "why would HTA benefit more": not because HTA analyses are harder, but because the same analysis is re-specified more times, by more parties, on more deadlines. Re-use is where a specification pays back.
+- Card 2: a standard is not only about reproducing a number, it is what lets a common navigator exist. Sponsors already need one internally to QC thousands of outputs; HTA assessors need one to find the analysis they asked for. Keep it as a question if challenged: would an HTA assessor use a viewer the sponsor built, and should they?
+- Card 3 pre-empts the expert's question ("why a standard and not a good internal format?") and names who pays: the cost falls on the sponsor's statistician; the benefit on a future team, a partner or an HTA assessor. That externality is why voluntary standards stall.
+- Transition slide into the discussion section. Do not answer the question; hand it over.
+:::
