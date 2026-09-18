@@ -44,20 +44,17 @@ format:
 
 # ARS and ARDs in Action: Market Access
 
-## Market Access Context
-
 <!-- 10 min section — Gregory -->
 
-
+{{< include market_access.qmd >}}
 
 # Discussion and Q&A
 
-## Discussion Prompts
-<!-- 15 min section — Gregory -->
+<!-- 10 min section — Gregory -->
 
+{{< include discussion.qmd >}}
 
-
-**Questions?**
+## Thank You {.smaller}
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -68,4 +65,16 @@ format:
 **Gregory <!-- Add surname -->**  
 <!-- Add contact/LinkedIn -->
 :::
+:::
+
+::: {.big-statement style="margin-top: 0.8em;"}
+Still on the table
+<span class="sub">Find us after the session, or bring one of these back into the room now.</span>
+:::
+
+::: {.prompt-facts}
+- **Essential metadata.** Which of PICO, HTA body, data cut and template should become controlled terminology, and who decides?
+- **The environment nobody re-runs.** One recipe, two compliant tools, two numbers: whose job is it to say when they must agree?
+- **Extend, profile, or sibling.** The missing concept exists outside the standard; what stops it getting in: the model, the governance, or the demand?
+- **Your own.** One HTA deliverable, expressed in ARS, and the exact place it broke.
 :::

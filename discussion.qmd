@@ -1,0 +1,165 @@
+## Discussion Prompts {.smaller}
+
+<!--
+  Discussion prompts, Q&A and wrap up  (10 min — Gregory, chair)
+  Included from main_deck.qmd. No YAML front matter on purpose.
+  Run order: overview → Prompt 1 and Prompt 5 live (about 3 min each) → wrap-up. Prompts 2, 3, 4 are on the table if the room goes there.
+-->
+
+::: {.big-statement style="margin-top: 0; font-size: 1.3em;"}
+Same recipe, new diners. What is the standard *for*, once it leaves the CSR?
+:::
+
+::: {style="font-size: 1.3em; line-height: 1.6;"}
+1. **Purpose.** Reproducibility, efficiency, or legibility: one euro, you cannot split it <span class="tag t-fit">live</span>
+2. **The AI era.** Structured results do not prevent hallucination; they make it attributable <span class="tag t-fit">live</span>
+3. **Essential metadata.** You are the HTA assessor: the one thing you want machine-readable first <span class="tag t-stretch">if time</span>
+4. **The environment nobody re-runs.** One recipe, two compliant tools, two numbers <span class="tag t-stretch">if time</span>
+5. **Extend, profile, or sibling.** The missing concept has been built once, outside the standard <span class="tag t-stretch">if time</span>
+:::
+
+::: {.notes}
+- Recruit before you ask: during the break, ask one market access person and one CSR statistician one question each and tell them you will come to them first.
+- 0:00–1:30, Prompt 1: forced choice, counted hands. Count each option aloud, then ask the smallest group to defend itself.
+- 1:30–2:30: "Now vote as the HTA assessor." If the room shifts, say it out loud: we just discovered we are building this for ourselves.
+- 2:30–4:30, Prompt 5: put the claim on screen and ask "who wants to argue with that?", not "any thoughts?".
+- 4:30–5:30: to the two named people: "One sentence. What would you have to see to switch?"
+- Never open the floor with "any questions?". Ask "who has tried this and watched it break?".
+:::
+
+## Prompt 1: One Euro {.smaller}
+
+::: {.big-statement style="margin-top: 0.2em;"}
+Reproducibility, efficiency to reproduce, or legibility. One euro. You cannot split it.
+:::
+
+::: {.prompt-facts}
+- **Reproducibility.** Same ingredients, same recipe, same number. No HTA assessor holds the ingredients.
+- **Efficiency.** The sponsor re-cooks for the next diner in days, not months. Mostly an internal benefit.
+- **Legibility.** An HTA assessor, or a model, can read what was done, for whom, against what, at which cut.
+:::
+
+::: {.big-statement style="font-size: 1.3em;"}
+Vote as the sponsor. Then vote as the HTA assessor.
+<span class="sub">If the room shifts, we have just learned who we are building this for.</span>
+:::
+
+::: {.notes}
+- Context to say aloud, not show: FDA and PMDA take datasets and programs; EMA plans to from 2026–2028; JCA and national bodies take documents. In the first published JCA the HTA assessors could not reproduce most of the naive safety comparisons because event rates copied from the comparator's publication had been switched (tovorafenib report, Appendix D.2, request 4).
+- Count the hands for each option out loud. Ask the smallest group to defend itself: minority defence is more interesting than majority agreement.
+- Follow-up if quiet: does a standard built for the regulator's question also serve the HTA assessor's, or are we assuming it does?
+:::
+
+## Prompt 5: Attributable, Not Prevented {.smaller}
+
+::: {.big-statement style="margin-top: 0.2em;"}
+Structured results do not prevent hallucination. They make it attributable.
+<span class="sub">Who wants to argue with that?</span>
+:::
+
+::: {.prompt-facts}
+- A model can already read a PDF table. It cannot prove which cell it read. Result identifiers are the audit trail, not a concession.
+- The first JCA's error was a switched ingredient, copied by hand from a publication. No model hallucinated that. A result record would have made it findable, not less wrong.
+- HTACG, July 2026: every AI-assisted step documented, prompts kept, a human responsible. Nothing yet on what makes the *numbers* checkable.
+:::
+
+::: {.big-statement style="font-size: 1.3em;"}
+What would an HTA assessor need to see to trust an AI-drafted dossier?
+<span class="sub">Is "readable by a machine" a design requirement for the standard, or a side effect?</span>
+:::
+
+::: {.notes}
+- Put the claim on screen and wait. Silence after a claim is shorter than silence after an invitation.
+- HTACG principles (adopted 15 Jul 2026): "None of the steps in the dossier preparation or analysis process should be fully automated without a human being ultimately responsible"; tool name, version, date, developer and purpose for every AI-assisted step; "all prompts used in AI tools are recorded and made available if requested".
+- Proofs of concept exist for drafting CSR narrative from ARS and ARD records (PharmaSUG 2025) and for generating TFL code from ARS metadata (PHUSE 2026). None has been evaluated by an HTA assessor.
+:::
+
+## Prompt 2: The One Thing {.smaller}
+
+::: {.big-statement style="margin-top: 0.2em;"}
+You are the HTA assessor. Twelve PICOs, three thousand pages, no patient data, one question to answer.
+<span class="sub">Name the one thing in that dossier you want machine-readable first. Not the list. The one thing.</span>
+:::
+
+::: {.prompt-facts}
+- ARS already has the hook: implementer-defined categories on any analysis or output. A sponsor could tag PICO, body, cut and template this afternoon.
+- Implementer-defined means no two sponsors tag alike, and no HTA assessor can filter across dossiers.
+- Each field costs a statistician time now; the benefit lands later, and often with someone else.
+:::
+
+::: {.big-statement style="font-size: 1.3em;"}
+Which of PICO, HTA body, data cut and template should become controlled terminology, and who decides?
+:::
+
+::: {.notes}
+- Fallback if the room is quiet after Prompt 1: the scenario is concrete and everyone has an answer.
+- The four category IDs on the mapping slide were "us making it up"; this prompt asks which of them should stop being made up.
+- Second question if needed: what is the minimum set that would change an HTA assessor's decision?
+:::
+
+## Prompt 3: The Environment Nobody Re-runs {.smaller}
+
+::: {.big-statement style="margin-top: 0.2em;"}
+One recipe, two compliant tools, two different numbers.
+<span class="sub">At which decimal place does "the same result" stop being guaranteed, and whose job is it to say?</span>
+:::
+
+::: {.prompt-facts}
+- ARS has one field for the environment: the language and its version. No packages, no lockfile, no run date.
+- The number depends on more than that: ties, rounding, missing-data rules, default arguments, a seed in a Bayesian synthesis.
+- In the published JCA dossiers, code arrived as PDF. Nobody asked for a lockfile. Nobody complained.
+:::
+
+::: {.big-statement style="font-size: 1.3em;"}
+Name one thing you record about the computational environment that anyone outside your team has ever read.
+:::
+
+::: {.notes}
+- This is the chair's own open question. The non-obvious answer: the environment matters even though nobody re-runs, because the number itself depends on it. That is also the sharpest available answer to "what metadata is essential".
+- Re-running in the reviewer's browser is no longer hypothetical: the R Consortium's Pilot 4 put a WebAssembly component in front of FDA reviewers with favourable feedback.
+- Gently puncture "any compliant tool gives the same result" without contradicting the earlier section: the standard specifies the operation, not the numerics.
+:::
+
+## Prompt 4: Extend, Profile, or Sibling? {.smaller}
+
+::: {.big-statement style="margin-top: 0.2em;"}
+The concept ARS most clearly lacks, a rule that decides whether an analysis exists at all, has already been built once, outside the standard, for the German template.
+:::
+
+::: {.prompt-facts}
+- HTA changes the ingredients, the methods and the consumers, not only the volume.
+- ARS has the mechanisms: categories, reason codes, document references. It does not have the vocabulary.
+- Nobody has asked for it: not a regulator, not an HTA assessor.
+:::
+
+::: {.big-statement style="font-size: 1.3em;"}
+Extension, profile, or sibling with a shared core?
+<span class="sub">And what stops the missing concept becoming part of the standard: the model, the governance, or the demand?</span>
+:::
+
+::: {.notes}
+- The open-source precedent: hta-pharma's chefCriteria ships inclusion criteria on p-values and on the number of subjects with events, exactly the "criteria for execution" concept.
+- Candidate owners if the room goes there: CDISC (the model), the HTA Coordination Group (the demand), PHUSE and pharmaverse (the tooling), ISPOR and R-HTA (the economics side). Do not let it become a listing exercise; the second question is the real one.
+:::
+
+## Wrap Up {.smaller}
+
+::: {.card-row}
+::: {.card .orange}
+<span class="card-title">What we are asking you</span>
+
+- Take **one** HTA deliverable, a subgroup annex or a single PICO, express it in ARS, and tell the working group exactly where it broke
+- Decide what *essential* means before deciding what *complete* means
+- Bring the HTA assessor's question to the standard, not only the sponsor's
+:::
+:::
+
+::: {.big-statement}
+We standardised the base ingredient twenty years ago. The recipe is still buried in the code, and the meal is still a PDF.
+<span class="sub">The analyses will be produced either way. The only choice is whether they arrive as three thousand pages or three thousand records. Over to you.</span>
+:::
+
+::: {.notes}
+- Not "here is the solution": what we may want to achieve, what existing tools already give us, and where the gaps are. Say that in one breath, then the closing line.
+- Hand over to the thank-you slide.
+:::

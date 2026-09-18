@@ -1,0 +1,90 @@
+---
+title: "Where This Leaves Us: layout alternatives"
+subtitle: "Three options for the closing slide of the market access section"
+format:
+  revealjs:
+    theme: default
+    slide-number: true
+    footer: "Alternatives for slide 27"
+    transition: slide
+    css: styles.css
+---
+
+# Option A: three short cards and one question
+
+## Where This Leaves Us {.smaller}
+
+::: {.card-row}
+::: {.card .green}
+<span class="card-title">Re-use is highest in HTA</span>
+
+One recipe, many diners, many cuts. A machine-readable recipe pays back on every re-cook, and nowhere is it re-cooked more.
+:::
+::: {.card}
+<span class="card-title">A shared standard is what makes shared tooling possible</span>
+
+Thousands of records to navigate, trace and diff. Sponsors need that for QC, assessors to find what they asked for. Nobody builds a viewer for an in-house format.
+:::
+::: {.card .orange}
+<span class="card-title">Nobody has asked, and every field has a cost</span>
+
+No regulator or assessor names ARS. The metadata is paid for by a programmer on a deadline, for a reader they will never meet.
+:::
+:::
+
+::: {.big-statement}
+What would we want to achieve, and what would it cost to capture?
+<span class="sub">Reproducibility, efficiency to reproduce, or legibility for a reviewer and for a machine: pick the goal before picking the metadata. Over to the discussion.</span>
+:::
+
+# Option B: two columns, why it pays and what it costs
+
+## Where This Leaves Us {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+::: {.card .green}
+<span class="card-title">Why it could pay back</span>
+
+- The same recipe is re-cooked for more diners in HTA than anywhere else in the lifecycle
+- Thousands of result records become navigable, traceable and diffable, for the sponsor's QC and the assessor's search alike
+- A record a machine can cite is a record a reviewer can check
+:::
+:::
+::: {.column width="50%"}
+::: {.card .orange}
+<span class="card-title">What it would cost</span>
+
+- Vocabulary HTA has and ARS does not: PICO, comparator source, criteria, provenance, destination
+- Every field filled by a programmer on a deadline, for a reader they will never meet
+- No regulator or assessor has asked for it, so the business case is internal until that changes
+:::
+:::
+:::
+
+::: {.big-statement}
+What would we want to achieve, and what would it cost to capture?
+<span class="sub">Pick the goal before picking the metadata. Over to the discussion.</span>
+:::
+
+# Option C: one statement, three lines, spoken not read
+
+## Where This Leaves Us
+
+::: {.big-statement style="font-size: 2.2em; margin-top: 1.2em;"}
+One recipe. Many diners. Who writes the menu?
+:::
+
+::: {style="text-align: center; font-size: 1.35em; line-height: 1.9; margin-top: 1.2em; color: #2c3e50;"}
+HTA re-cooks the recipe more than anyone, and can run none of it.<br/>
+A shared recipe is what makes a shared kitchen possible.<br/>
+Nobody has ordered it yet, and every line of the recipe costs someone.
+:::
+
+::: {.big-statement style="font-size: 1.3em; margin-top: 1.4em;"}
+<span class="sub">What would we want to achieve, and what would it cost to capture? Over to the discussion.</span>
+:::
+
+::: {.notes}
+- Everything the other options put on screen is said aloud here: re-use is highest in HTA; a shared standard enables shared tooling for sponsors and assessors; no regulator or assessor has asked and every field has a cost.
+:::
