@@ -13,6 +13,12 @@ format:
       theme: default
 ---
 
+# A familiar friend in clinical trial reporting - the adverse events table
+
+::: {.footer}
+Orla Doyle
+:::
+
 **Treatment-emergent adverse events by primary system organ class and preferred term**
 
 <table class="ae-table">
@@ -36,13 +42,18 @@ format:
 
 ## Generating the Table: Parameters Are Embedded {.smaller}
 
+::: {.footer}
+Orla Doyle
+:::
+
 Typical implementation — key parameters **hardcoded** directly in the script:
 
-```{.r code-line-numbers="5,7,13,18"}
+```{.r}
 library(tidyverse)
 
 # Safety population
-adsl_safe <- adsl %>%
+
+adsl_safe <- adsl %>% 
   filter(SAFFL == "Y")              # <- hardcoded
 
 n_trt <- count(adsl_safe, TRTA)    # <- hardcoded
@@ -69,6 +80,10 @@ result <- adae_te %>%
 > Changing the population means hunting through the script.
 
 ## Separating Parameters from Code {.smaller}
+
+::: {.footer}
+Orla Doyle
+:::
 
 Pull parameters into a **YAML metadata file** — the code becomes generic:
 
@@ -97,6 +112,7 @@ hierarchy:
   - AEDECOD
 ```
 :::
+
 ::: {.column width="56%"}
 **R code — driven by metadata**
 
@@ -135,6 +151,10 @@ result <- adae_te %>%
 :::
 
 ## Metadata Quickly Grows {.smaller}
+
+::: {.footer}
+Orla Doyle
+:::
 
 One AE table means **many** analyses. The YAML expands rapidly:
 
@@ -219,18 +239,26 @@ Without a **standard**, every team invents their own format.
 
 # Analysis Results Standard {background-color="#2c3e50"}
 
+::: {.footer}
+Orla Doyle
+:::
+
 ## ARS v1.0: Background {.smaller}
+
+::: {.footer}
+Orla Doyle
+:::
 
 **What it defines**
 
-- A formal **metadata model** for every clinical analysis
+- A formal **metadata model** for clinical trial analysis results
 - Connects ADaM datasets (inputs) to results (outputs)
 - Covers concetps like populations, filters, groupings, methods, operations
 
-**Why it matters**
+**How it helps**
 
 - Unambiguous — no programmer interpretation required
-- Reproducible — any compliant tool gives the same result
+- Reproducible — any compatible tool gives the same result
 - Auditable — every result traces to a specification
 - Automatable — machines can execute the metadata directly
 
@@ -246,7 +274,7 @@ Without a **standard**, every team invents their own format.
 <tbody>
 <tr>
   <td><strong>LinkML</strong></td>
-  <td>The blueprint that defines and validates the ARS structure</td>
+  <td>Tooling use to house the blueprint that defines and validates the ARS structure</td>
 </tr>
 <tr>
   <td><strong>ARS (before execution)</strong></td>
@@ -263,7 +291,68 @@ Without a **standard**, every team invents their own format.
 </tbody>
 </table>
 
+## The Wider ARS Landscape {.smaller .ars-breadth-slide}
+
+::: {.footer}
+Orla Doyle
+:::
+
+::: {.ars-breadth-intro}
+The AE example is one slice of a broader results model: from study context and data inputs, through analysis definitions, to governed results and provenance.
+:::
+
+::: {.ars-breadth-grid}
+::: {.ars-breadth-group}
+**Study and data context**
+
+- Study and reporting event
+- Dataset and variable references
+- Controlled terminology
+- Analysis populations and subsets
+:::
+
+::: {.ars-breadth-group .ars-breadth-focus}
+**Analysis definition**
+
+- **Analysis**
+- **AnalysisSet**
+- **DataSubset**
+- **GroupingFactor**
+- Analysis method and operations
+:::
+
+::: {.ars-breadth-group}
+**Results and hand-off**
+
+- Result groups and values
+- Counts, percentages, summaries
+- Structured output records
+- Hand-off to tables, listings, and figures
+:::
+
+::: {.ars-breadth-group}
+**Traceability and governance**
+
+- Specification-to-result links
+- Versioning and provenance
+- Validation and conformance
+- Reproducible execution
+:::
+:::
+
+::: {.ars-breadth-gap}
+**The automation gap:** ARS can make the result computable and traceable, but the final rendering and presentation metadata may live outside the model. Turning an ARD into a compliant table, listing, or figure still needs another governed layer.
+:::
+
+::: {.ars-breadth-takeaway}
+**This deck zooms in on the centre:** how a familiar AE table becomes a structured, executable analysis definition.
+:::
+
 ## Demystifying ARS, ARD, and LinkML {.smaller}
+
+::: {.footer}
+Orla Doyle
+:::
 
 ::: {style="margin-top: 1.5em; font-size: 1.1em;"}
 **ARS = Recipe**  
@@ -273,14 +362,18 @@ The specification that describes *what* to analyze and *how* to compute it
 The actual results produced by executing the ARS specification
 
 **LinkML = Recipe Template**  
-The schema that defines the structure and rules for writing valid recipes
+Tooling to check the schema defining the structure and rules for writing valid recipes
 :::
 
 ::: {style="margin-top: 1.5em; font-size: 0.85em; background: #f5f5f5; padding: 1em; border-radius: 5px; border-left: 4px solid #2563eb;"}
 **Key Insight:** ARS starts as a specification document. After execution, it can also contain the resulting ARD — the specification and its results travel together.
 :::
 
-## Worked Example: From Spec to Results {.smaller}
+## Worked Example: From AE Spec to Results {.smaller}
+
+::: {.footer}
+Orla Doyle
+:::
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -289,18 +382,21 @@ The schema that defines the structure and rules for writing valid recipes
 ```yaml
 analysis:
   id: AN001
-  label: "Mean Age by Treatment"
-  dataset: ADSL
-  variable: AGE
-  
+  label: ">=1 TEAE, n (%)"
+  dataset: ADAE
+  analysisVariable: USUBJID
+
 analysisSet:
-  condition: SAFFL == "Y"
-  
+  condition: ADSL.SAFFL == "Y"
+
+dataSubset:
+  condition: ADAE.TRTEMFL == "Y"
+
 grouping:
   variable: TRTA
-  
+
 method:
-  operation: MEAN
+  operations: [COUNT_DISTINCT, PERCENT_BY_SUBSET]
 ```
 
 <span style="color: #2563eb; font-weight: 600;">↓ Execute</span>
@@ -312,16 +408,19 @@ method:
 ```yaml
 results:
   - analysisId: AN001
-    groupId: "Placebo"
-    value: 42.3
-    
-  - analysisId: AN001
+    row: "Subjects with >=1 TEAE"
     groupId: "Treatment A"
-    value: 43.1
-    
+    value: "xx (xx.x%)"
+
   - analysisId: AN001
+    row: "Subjects with >=1 TEAE"
     groupId: "Treatment B"
-    value: 41.8
+    value: "xx (xx.x%)"
+
+  - analysisId: AN001
+    row: "Subjects with >=1 TEAE"
+    groupId: "Total"
+    value: "xx (xx.x%)"
 ```
 
 <span style="color: #16a34a; font-weight: 600;">✓ Results</span>
@@ -334,73 +433,73 @@ results:
 
 
 
-## The ARS Model: Focus on some of the core classes for ARD generation {.smaller}
+## ARS Model: Core classes for ARD generation {.smaller .ars-model-slide}
 
-::: {.columns}
-::: {.column width="65%"}
-```{mermaid}
-%%{init: {'theme':'default', 'themeVariables': { 'fontSize':'9px', 'fontFamily':'arial'}}}%%
-classDiagram
-    direction TB
-
-    class ReportingEvent {
-        string id
-        string label
-    }
-    class Analysis {
-        string id
-        string label
-        string dataset
-        string analysisVariable
-    }
-    class AnalysisSet {
-        string id
-        string label
-        string condition
-    }
-    class DataSubset {
-        string id
-        string label
-        string condition
-    }
-    class GroupingFactor {
-        string id
-        string groupingVariable
-        boolean dataDriven
-    }
-    class AnalysisMethod {
-        string id
-        string label
-    }
-    class Operation {
-        string id
-        string label
-        string resultPattern
-    }
-
-    ReportingEvent "1" --> "*" Analysis : contains
-    Analysis "1" --> "1" AnalysisSet : analysisSet
-    Analysis "1" --> "0..1" DataSubset : dataSubset
-    Analysis "1" --> "1..*" GroupingFactor : orderedGroupings
-    Analysis "1" --> "1" AnalysisMethod : method
-    AnalysisMethod "1" --> "1..*" Operation : operations
-```
+::: {.footer}
+Orla Doyle
 :::
 
-::: {.column width="35%"}
-::: {style="font-size: 0.65em; line-height: 1.5;"}
+::: {.ars-model-layout}
+```{mermaid}
+%%{init: {'theme':'default', 'flowchart': {'nodeSpacing': 24, 'rankSpacing': 32}, 'themeVariables': { 'fontSize':'12px', 'fontFamily':'arial'}}}%%
+classDiagram
+  direction LR
+
+    class ReportingEvent {
+    id
+    label
+    }
+    class Analysis {
+    id
+    dataset
+    analysisVariable
+    }
+    class AnalysisSet {
+    condition
+    }
+    class DataSubset {
+    condition
+    }
+    class GroupingFactor {
+    groupingVariable
+    }
+    class AnalysisMethod {
+    label
+    }
+    class Operation {
+    label
+    resultPattern
+    }
+
+    ReportingEvent --> Analysis : contains
+    Analysis --> AnalysisSet : analysisSet
+    Analysis --> DataSubset : dataSubset
+    Analysis --> GroupingFactor : orderedGroupings
+    Analysis --> AnalysisMethod : method
+    AnalysisMethod --> Operation : operations
+```
+
+::: {.ars-model-definitions}
+::: {.ars-model-definition}
 `AnalysisSet` = **who** (population)
-
+:::
+::: {.ars-model-definition}
 `DataSubset` = **which records** (event filter)
-
+:::
+::: {.ars-model-definition}
 `GroupingFactor` = **how to split** (columns)
-
+:::
+::: {.ars-model-definition}
 `Operation` = **what to compute**
 :::
 :::
 :::
 
 ## Mapping ARS Back to Our Table {.smaller}
+
+::: {.footer}
+Orla Doyle
+:::
 
 Every element of the AE table maps to an ARS class:
 
@@ -452,3 +551,4 @@ Every element of the AE table maps to an ARS class:
 - <span class="fragment" data-fragment-index="4"><span class="legend-item"><span class="tag t-av">analysisVariable</span> unit counted</span></span>
 - <span class="fragment" data-fragment-index="5"><span class="legend-item"><span class="tag t-op">Operation</span> computation</span></span>
 :::
+

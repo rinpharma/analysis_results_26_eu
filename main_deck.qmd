@@ -14,21 +14,27 @@ format:
       theme: default
 ---
 
-# Introductions
+# Introductions {.intro-slide}
 
-## Orla Doyle
+::: {.columns}
+::: {.column width="50%"}
+### Orla Doyle 🇮🇪
 
-- **Role:** <!-- Add role/title -->
-- **Organisation:** <!-- Add organisation -->
-- **Background:** <!-- Add background -->
-- **Focus areas:** <!-- Add focus areas -->
+- **Role:** Executive Director, Head of Scientific Product Engineering, AQS
+- **Organisation:** Novartis
+- **Focus area:** Develops workflows and products for clinical trial reporting
+- **Based in:** Dublin, Ireland
+:::
 
-## Gregory <!-- Add surname -->
+::: {.column width="50%"}
+### Gregory Chen 🇨🇭
 
-- **Role:** <!-- Add role/title -->
-- **Organisation:** <!-- Add organisation -->
-- **Background:** <!-- Add background -->
-- **Focus areas:** <!-- Add focus areas -->
+- **Role:** Principal Statistician (Director), HTA Statistics
+- **Organisation:** Merck
+- **Focus area:** <!-- Add focus area -->
+- **Based in:** Basel, Switzerland
+:::
+:::
 
 ---
 
@@ -52,29 +58,41 @@ format:
 
 <!-- 10 min section — Gregory -->
 
-{{< include discussion.qmd >}}
+## From Structured Results to Trusted Evidence {.smaller .conference-prompts-slide}
 
-## Thank You {.smaller}
-
-::: {.columns}
-::: {.column width="50%"}
-**Orla Doyle**  
-<!-- Add contact/LinkedIn -->
-:::
-::: {.column width="50%"}
-**Gregory <!-- Add surname -->**  
-<!-- Add contact/LinkedIn -->
-:::
+::: {.conference-prompts-lead}
+ARS can make an analysis **computable**. What makes it **usable, admissible, and trusted** beyond the team that produced it?
 :::
 
-::: {.big-statement style="margin-top: 0.8em;"}
-Still on the table
-<span class="sub">Find us after the session, or bring one of these back into the room now.</span>
+::: {.conference-prompts-grid}
+::: {.conference-prompt}
+**01 · Efficiency ↔ readability**
+
+Can we accelerate production without making the result harder for a statistician, reviewer, or model to inspect?
 :::
 
-::: {.prompt-facts}
-- **Essential metadata.** Which of PICO, HTA body, data cut and template should become controlled terminology, and who decides?
-- **The environment nobody re-runs.** One recipe, two compliant tools, two numbers: whose job is it to say when they must agree?
-- **Extend, profile, or sibling.** The missing concept exists outside the standard; what stops it getting in: the model, the governance, or the demand?
-- **Your own.** One HTA deliverable, expressed in ARS, and the exact place it broke.
+::: {.conference-prompt}
+**02 · Submission ↔ evidence**
+
+Should a regulatory or HTA submission carry the ARS/ARD, the rendered output, the execution environment, or all three?
 :::
+
+::: {.conference-prompt}
+**03 · Automation ↔ validation**
+
+Does machine-readable metadata reduce validation effort, move it earlier, or create a new object that must be validated?
+:::
+
+::: {.conference-prompt}
+**04 · Results ↔ decisions**
+
+Which PICO, comparator, estimand, data cut, uncertainty, and presentation details must be machine-readable for an HTA assessor to challenge the result?
+:::
+:::
+
+::: {.conference-prompts-close}
+**The question for the room:** where should the standard stop, and what governed layer should come next?
+:::
+
+## Thank You 
+

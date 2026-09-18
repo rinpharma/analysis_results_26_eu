@@ -1,5 +1,9 @@
 ## Same Recipe, New Kitchen, New Diners {.smaller}
 
+::: {.footer}
+Gregory Chen
+:::
+
 <!--
   Use case for market access  (10 min — Gregory)
   Included from main_deck.qmd via {{< include market_access.qmd >}}.
@@ -52,6 +56,10 @@ In the first published Joint Clinical Assessment, the HTA assessors could not re
 :::
 
 ## Two Asks of the Same Base Ingredient {.smaller}
+
+::: {.footer}
+Gregory Chen
+:::
 
 ::: {.diagram-mid}
 ```{mermaid}
@@ -108,6 +116,10 @@ Regulatory track: once, EU-wide. HTA track: JCA in parallel with the EMA procedu
 
 ## The EU Joint Clinical Assessment in One Picture {.smaller}
 
+::: {.footer}
+Gregory Chen
+:::
+
 ::: {.columns}
 ::: {.column width="46%"}
 ```{mermaid}
@@ -151,6 +163,10 @@ timeline
 
 ## What HTA Analytics Look Like in Practice {.smaller}
 
+::: {.footer}
+Gregory Chen
+:::
+
 ::: {.card-row .compact}
 ::: {.card .orange}
 <span class="card-title">Volume</span>
@@ -189,6 +205,10 @@ timeline
 :::
 
 ## The Analysis Space Is Combinatorial {.smaller}
+
+::: {.footer}
+Gregory Chen
+:::
 
 ::: {.factor-row}
 ::: {.factor style="flex: 1.45;"}
@@ -273,6 +293,10 @@ timeline
 
 ## What ARS Names, and What HTA Would Add {.smaller}
 
+::: {.footer}
+Gregory Chen
+:::
+
 <table class="cmp-table dense xdense">
 <thead>
 <tr><th style="width:15%">ARS class</th><th style="width:15%">In the earlier AE table</th><th style="width:25%">In the HTA setting</th><th>What to record, for whom <sup class="cite">[1,2]</sup></th><th style="width:8%"></th></tr>
@@ -300,6 +324,10 @@ timeline
 :::
 
 ## What ARS Has No Word For Yet {.smaller}
+
+::: {.footer}
+Gregory Chen
+:::
 
 ::: {.card-row}
 ::: {.card .orange}
@@ -350,6 +378,10 @@ Record as much as possible? How much is too much, and for whom?
 
 ## Who Asks for Data and Code Today {.smaller}
 
+::: {.footer}
+Gregory Chen
+:::
+
 <table class="cmp-table dense">
 <thead>
 <tr><th style="width:14%">Body</th><th style="width:43%">Asked for today</th><th>Direction of travel</th></tr>
@@ -382,6 +414,10 @@ Nobody asks for ARS: not one regulator, not one HTA assessor. And no HTA assesso
 :::
 
 ## Where This Leaves Us {.smaller}
+
+::: {.footer}
+Gregory Chen
+:::
 
 ::: {.card-row}
 ::: {.card .green}
