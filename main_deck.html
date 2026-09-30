@@ -204,34 +204,43 @@
 
 </section>
 <section>
-<section id="introductions" class="title-slide slide level1 center">
+<section id="introductions" class="title-slide slide level1 intro-slide center">
 <h1>Introductions</h1>
 
 </section>
-<section id="orla-doyle" class="slide level2">
-<h2>Orla Doyle</h2>
+<div class="columns">
+<div class="column" style="width:47.5%;">
+<h3 id="orla-doyle">Orla Doyle 🇮🇪</h3>
 <ul>
-<li><strong>Role:</strong> <!-- Add role/title --></li>
-<li><strong>Organisation:</strong> <!-- Add organisation --></li>
-<li><strong>Background:</strong> <!-- Add background --></li>
-<li><strong>Focus areas:</strong> <!-- Add focus areas --></li>
+<li><strong>Role:</strong> <span class="role-lines">Executive Director<br>Head of Scientific Product Engineering<br>AQS</span></li>
+<li><strong>Organisation:</strong> Novartis</li>
+<li><strong>Focus area:</strong> Develops workflows and products for clinical trial reporting</li>
+<li><strong>Based in:</strong> Dublin, Ireland</li>
 </ul>
-</section>
-<section id="gregory" class="slide level2">
-<h2>Gregory <!-- Add surname --></h2>
+</div><div class="column intro-right" style="width:47.5%;">
+<h3 id="gregory-chen">Gregory Chen 🇨🇭</h3>
 <ul>
-<li><strong>Role:</strong> <!-- Add role/title --></li>
-<li><strong>Organisation:</strong> <!-- Add organisation --></li>
-<li><strong>Background:</strong> <!-- Add background --></li>
-<li><strong>Focus areas:</strong> <!-- Add focus areas --></li>
+<li><strong>Role:</strong> <span class="role-lines">Principal Statistician (Director)<br>BARDS HTA Statistics</span></li>
+<li><strong>Organisation:</strong> MSD</li>
+<li><strong>Focus area:</strong> Integrated evidence planning and synthesis via statistical techniques for HTA/value proposition/market access</li>
+<li><strong>Based in:</strong> Basel, Switzerland</li>
 </ul>
-</section>
+</div>
+</div>
 <section class="slide level2">
 
 </section></section>
-<section>
 <section id="demystifying-ars" class="title-slide slide level1 center">
 <h1>Demystifying ARS</h1>
+
+</section>
+
+<section>
+<section id="a-familiar-friend-in-clinical-trial-reporting---the-adverse-events-table" class="title-slide slide level1 center">
+<h1>A familiar friend in clinical trial reporting - the adverse events table</h1>
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
 <p><strong>Treatment-emergent adverse events by primary system organ class and preferred term</strong></p>
 <table class="ae-table">
 <thead>
@@ -340,31 +349,35 @@ xx (xx.x)
 </section>
 <section id="generating-the-table-parameters-are-embedded" class="slide level2 smaller">
 <h2>Generating the Table: Parameters Are Embedded</h2>
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
 <p>Typical implementation — key parameters <strong>hardcoded</strong> directly in the script:</p>
-<div class="sourceCode" id="cb1" data-code-line-numbers="5,7,13,18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href=""></a></span>
 <span id="cb1-3"><a href=""></a><span class="co"># Safety population</span></span>
-<span id="cb1-4"><a href=""></a>adsl_safe <span class="ot">&lt;-</span> adsl <span class="sc">%&gt;%</span></span>
-<span id="cb1-5"><a href=""></a>  <span class="fu">filter</span>(SAFFL <span class="sc">==</span> <span class="st">"Y"</span>)              <span class="co"># &lt;- hardcoded</span></span>
-<span id="cb1-6"><a href=""></a></span>
-<span id="cb1-7"><a href=""></a>n_trt <span class="ot">&lt;-</span> <span class="fu">count</span>(adsl_safe, TRTA)    <span class="co"># &lt;- hardcoded</span></span>
-<span id="cb1-8"><a href=""></a></span>
-<span id="cb1-9"><a href=""></a><span class="co"># Treatment-emergent AEs</span></span>
-<span id="cb1-10"><a href=""></a>adae_te <span class="ot">&lt;-</span> adae <span class="sc">%&gt;%</span></span>
-<span id="cb1-11"><a href=""></a>  <span class="fu">filter</span>(</span>
-<span id="cb1-12"><a href=""></a>    USUBJID <span class="sc">%in%</span> adsl_safe<span class="sc">$</span>USUBJID,</span>
-<span id="cb1-13"><a href=""></a>    TRTEMFL <span class="sc">==</span> <span class="st">"Y"</span>                  <span class="co"># &lt;- hardcoded</span></span>
-<span id="cb1-14"><a href=""></a>  )</span>
-<span id="cb1-15"><a href=""></a></span>
-<span id="cb1-16"><a href=""></a><span class="co"># Count by System Organ Class and Preferred Term</span></span>
-<span id="cb1-17"><a href=""></a>result <span class="ot">&lt;-</span> adae_te <span class="sc">%&gt;%</span></span>
-<span id="cb1-18"><a href=""></a>  <span class="fu">group_by</span>(AESOC, AEDECOD, TRTA) <span class="sc">%&gt;%</span>  <span class="co"># &lt;- hardcoded</span></span>
-<span id="cb1-19"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n_distinct</span>(USUBJID), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-20"><a href=""></a>  <span class="fu">left_join</span>(n_trt, <span class="at">by =</span> <span class="st">"TRTA"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-21"><a href=""></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-22"><a href=""></a>    <span class="at">pct  =</span> <span class="fu">round</span>(n.x <span class="sc">/</span> n.y <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>),</span>
-<span id="cb1-23"><a href=""></a>    <span class="at">cell =</span> <span class="fu">sprintf</span>(<span class="st">"%d (%.1f)"</span>, n.x, pct)</span>
-<span id="cb1-24"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href=""></a></span>
+<span id="cb1-5"><a href=""></a>adsl_safe <span class="ot">&lt;-</span> adsl <span class="sc">%&gt;%</span> </span>
+<span id="cb1-6"><a href=""></a>  <span class="fu">filter</span>(SAFFL <span class="sc">==</span> <span class="st">"Y"</span>)              <span class="co"># &lt;- hardcoded</span></span>
+<span id="cb1-7"><a href=""></a></span>
+<span id="cb1-8"><a href=""></a>n_trt <span class="ot">&lt;-</span> <span class="fu">count</span>(adsl_safe, TRTA)    <span class="co"># &lt;- hardcoded</span></span>
+<span id="cb1-9"><a href=""></a></span>
+<span id="cb1-10"><a href=""></a><span class="co"># Treatment-emergent AEs</span></span>
+<span id="cb1-11"><a href=""></a>adae_te <span class="ot">&lt;-</span> adae <span class="sc">%&gt;%</span></span>
+<span id="cb1-12"><a href=""></a>  <span class="fu">filter</span>(</span>
+<span id="cb1-13"><a href=""></a>    USUBJID <span class="sc">%in%</span> adsl_safe<span class="sc">$</span>USUBJID,</span>
+<span id="cb1-14"><a href=""></a>    TRTEMFL <span class="sc">==</span> <span class="st">"Y"</span>                  <span class="co"># &lt;- hardcoded</span></span>
+<span id="cb1-15"><a href=""></a>  )</span>
+<span id="cb1-16"><a href=""></a></span>
+<span id="cb1-17"><a href=""></a><span class="co"># Count by System Organ Class and Preferred Term</span></span>
+<span id="cb1-18"><a href=""></a>result <span class="ot">&lt;-</span> adae_te <span class="sc">%&gt;%</span></span>
+<span id="cb1-19"><a href=""></a>  <span class="fu">group_by</span>(AESOC, AEDECOD, TRTA) <span class="sc">%&gt;%</span>  <span class="co"># &lt;- hardcoded</span></span>
+<span id="cb1-20"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n_distinct</span>(USUBJID), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-21"><a href=""></a>  <span class="fu">left_join</span>(n_trt, <span class="at">by =</span> <span class="st">"TRTA"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-22"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-23"><a href=""></a>    <span class="at">pct  =</span> <span class="fu">round</span>(n.x <span class="sc">/</span> n.y <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>),</span>
+<span id="cb1-24"><a href=""></a>    <span class="at">cell =</span> <span class="fu">sprintf</span>(<span class="st">"%d (%.1f)"</span>, n.x, pct)</span>
+<span id="cb1-25"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <blockquote>
 <p>Every filter, variable name, and hierarchy is <strong>buried in the code</strong>.<br>
 Changing the population means hunting through the script.</p>
@@ -372,6 +385,9 @@ Changing the population means hunting through the script.</p>
 </section>
 <section id="separating-parameters-from-code" class="slide level2 smaller">
 <h2>Separating Parameters from Code</h2>
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
 <p>Pull parameters into a <strong>YAML metadata file</strong> — the code becomes generic:</p>
 <div class="columns">
 <div class="column" style="width:42%;">
@@ -429,6 +445,9 @@ Changing the population means hunting through the script.</p>
 </section>
 <section id="metadata-quickly-grows" class="slide level2 smaller">
 <h2>Metadata Quickly Grows</h2>
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
 <p>One AE table means <strong>many</strong> analyses. The YAML expands rapidly:</p>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -504,20 +523,25 @@ Without a <strong>standard</strong>, every team invents their own format.</p>
 <section>
 <section id="analysis-results-standard" class="title-slide slide level1 center" data-background-color="#2c3e50">
 <h1>Analysis Results Standard</h1>
-
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
 </section>
 <section id="ars-v1.0-background" class="slide level2 smaller">
 <h2>ARS v1.0: Background</h2>
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
 <p><strong>What it defines</strong></p>
 <ul>
-<li>A formal <strong>metadata model</strong> for every clinical analysis</li>
+<li>A formal <strong>metadata model</strong> for clinical trial analysis results</li>
 <li>Connects ADaM datasets (inputs) to results (outputs)</li>
 <li>Covers concetps like populations, filters, groupings, methods, operations</li>
 </ul>
-<p><strong>Why it matters</strong></p>
+<p><strong>How it helps</strong></p>
 <ul>
 <li>Unambiguous — no programmer interpretation required</li>
-<li>Reproducible — any compliant tool gives the same result</li>
+<li>Reproducible — any compatible tool gives the same result</li>
 <li>Auditable — every result traces to a specification</li>
 <li>Automatable — machines can execute the metadata directly</li>
 </ul>
@@ -539,7 +563,7 @@ Purpose
 <strong>LinkML</strong>
 </td>
 <td>
-The blueprint that defines and validates the ARS structure
+Tooling use to house the blueprint that defines and validates the ARS structure
 </td>
 </tr>
 <tr>
@@ -569,131 +593,200 @@ The analysis results represented as structured result records that can be extrac
 </tbody>
 </table>
 </section>
+<section id="the-wider-ars-landscape" class="slide level2 smaller ars-breadth-slide">
+<h2>The Wider ARS Landscape</h2>
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
+<div class="ars-breadth-intro">
+<p>The AE example is one slice of a broader results model: from study context and data inputs, through analysis definitions, to governed results and provenance.</p>
+</div>
+<div class="ars-breadth-grid">
+<div class="ars-breadth-group">
+<p><strong>Study and data context</strong></p>
+<ul>
+<li>Study and reporting event</li>
+<li>Dataset and variable references</li>
+<li>Controlled terminology</li>
+<li>Analysis populations and subsets</li>
+</ul>
+</div>
+<div class="ars-breadth-group ars-breadth-focus">
+<p><strong>Analysis definition</strong></p>
+<ul>
+<li><strong>Analysis</strong></li>
+<li><strong>AnalysisSet</strong></li>
+<li><strong>DataSubset</strong></li>
+<li><strong>GroupingFactor</strong></li>
+<li>Analysis method and operations</li>
+</ul>
+</div>
+<div class="ars-breadth-group">
+<p><strong>Results and hand-off</strong></p>
+<ul>
+<li>Result groups and values</li>
+<li>Counts, percentages, summaries</li>
+<li>Structured output records</li>
+<li>Hand-off to tables, listings, and figures</li>
+</ul>
+</div>
+<div class="ars-breadth-group">
+<p><strong>Traceability and governance</strong></p>
+<ul>
+<li>Specification-to-result links</li>
+<li>Versioning and provenance</li>
+<li>Validation and conformance</li>
+<li>Reproducible execution</li>
+</ul>
+</div>
+</div>
+<div class="ars-breadth-gap">
+<p><strong>The automation gap:</strong> ARS can make the result computable and traceable, but the final rendering and presentation metadata may live outside the model. Turning an ARD into a compliant table, listing, or figure still needs another governed layer.</p>
+</div>
+<div class="ars-breadth-takeaway">
+<p><strong>This deck zooms in on the centre:</strong> how a familiar AE table becomes a structured, executable analysis definition.</p>
+</div>
+</section>
 <section id="demystifying-ars-ard-and-linkml" class="slide level2 smaller">
 <h2>Demystifying ARS, ARD, and LinkML</h2>
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
 <div style="margin-top: 1.5em; font-size: 1.1em;">
 <p><strong>ARS = Recipe</strong><br>
 The specification that describes <em>what</em> to analyze and <em>how</em> to compute it</p>
 <p><strong>ARD = Cooked Meal</strong><br>
 The actual results produced by executing the ARS specification</p>
 <p><strong>LinkML = Recipe Template</strong><br>
-The schema that defines the structure and rules for writing valid recipes</p>
+Tooling to check the schema defining the structure and rules for writing valid recipes</p>
 </div>
 <div style="margin-top: 1.5em; font-size: 0.85em; background: #f5f5f5; padding: 1em; border-radius: 5px; border-left: 4px solid #2563eb;">
 <p><strong>Key Insight:</strong> ARS starts as a specification document. After execution, it can also contain the resulting ARD — the specification and its results travel together.</p>
 </div>
 </section>
-<section id="worked-example-from-spec-to-results" class="slide level2 smaller">
-<h2>Worked Example: From Spec to Results</h2>
+<section id="worked-example-from-ae-spec-to-results" class="slide level2 smaller">
+<h2>Worked Example: From AE Spec to Results</h2>
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p><strong>ARS Specification (Recipe)</strong></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href=""></a><span class="fu">analysis</span><span class="kw">:</span></span>
 <span id="cb6-2"><a href=""></a><span class="at">  </span><span class="fu">id</span><span class="kw">:</span><span class="at"> AN001</span></span>
-<span id="cb6-3"><a href=""></a><span class="at">  </span><span class="fu">label</span><span class="kw">:</span><span class="at"> </span><span class="st">"Mean Age by Treatment"</span></span>
-<span id="cb6-4"><a href=""></a><span class="at">  </span><span class="fu">dataset</span><span class="kw">:</span><span class="at"> ADSL</span></span>
-<span id="cb6-5"><a href=""></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> AGE</span></span>
-<span id="cb6-6"><a href=""></a><span class="at">  </span></span>
+<span id="cb6-3"><a href=""></a><span class="at">  </span><span class="fu">label</span><span class="kw">:</span><span class="at"> </span><span class="st">"&gt;=1 TEAE, n (%)"</span></span>
+<span id="cb6-4"><a href=""></a><span class="at">  </span><span class="fu">dataset</span><span class="kw">:</span><span class="at"> ADAE</span></span>
+<span id="cb6-5"><a href=""></a><span class="at">  </span><span class="fu">analysisVariable</span><span class="kw">:</span><span class="at"> USUBJID</span></span>
+<span id="cb6-6"><a href=""></a></span>
 <span id="cb6-7"><a href=""></a><span class="fu">analysisSet</span><span class="kw">:</span></span>
-<span id="cb6-8"><a href=""></a><span class="at">  </span><span class="fu">condition</span><span class="kw">:</span><span class="at"> SAFFL == "Y"</span></span>
-<span id="cb6-9"><a href=""></a><span class="at">  </span></span>
-<span id="cb6-10"><a href=""></a><span class="fu">grouping</span><span class="kw">:</span></span>
-<span id="cb6-11"><a href=""></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> TRTA</span></span>
-<span id="cb6-12"><a href=""></a><span class="at">  </span></span>
-<span id="cb6-13"><a href=""></a><span class="fu">method</span><span class="kw">:</span></span>
-<span id="cb6-14"><a href=""></a><span class="at">  </span><span class="fu">operation</span><span class="kw">:</span><span class="at"> MEAN</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-8"><a href=""></a><span class="at">  </span><span class="fu">condition</span><span class="kw">:</span><span class="at"> ADSL.SAFFL == "Y"</span></span>
+<span id="cb6-9"><a href=""></a></span>
+<span id="cb6-10"><a href=""></a><span class="fu">dataSubset</span><span class="kw">:</span></span>
+<span id="cb6-11"><a href=""></a><span class="at">  </span><span class="fu">condition</span><span class="kw">:</span><span class="at"> ADAE.TRTEMFL == "Y"</span></span>
+<span id="cb6-12"><a href=""></a></span>
+<span id="cb6-13"><a href=""></a><span class="fu">grouping</span><span class="kw">:</span></span>
+<span id="cb6-14"><a href=""></a><span class="at">  </span><span class="fu">variable</span><span class="kw">:</span><span class="at"> TRTA</span></span>
+<span id="cb6-15"><a href=""></a></span>
+<span id="cb6-16"><a href=""></a><span class="fu">method</span><span class="kw">:</span></span>
+<span id="cb6-17"><a href=""></a><span class="at">  </span><span class="fu">operations</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">COUNT_DISTINCT</span><span class="kw">,</span><span class="at"> PERCENT_BY_SUBSET</span><span class="kw">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><span style="color: #2563eb; font-weight: 600;">↓ Execute</span></p>
 </div><div class="column" style="width:50%;">
 <p><strong>ARD (Cooked Meal)</strong></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb7-1"><a href=""></a><span class="fu">results</span><span class="kw">:</span></span>
 <span id="cb7-2"><a href=""></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">analysisId</span><span class="kw">:</span><span class="at"> AN001</span></span>
-<span id="cb7-3"><a href=""></a><span class="at">    </span><span class="fu">groupId</span><span class="kw">:</span><span class="at"> </span><span class="st">"Placebo"</span></span>
-<span id="cb7-4"><a href=""></a><span class="at">    </span><span class="fu">value</span><span class="kw">:</span><span class="at"> </span><span class="fl">42.3</span></span>
-<span id="cb7-5"><a href=""></a><span class="at">    </span></span>
-<span id="cb7-6"><a href=""></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">analysisId</span><span class="kw">:</span><span class="at"> AN001</span></span>
-<span id="cb7-7"><a href=""></a><span class="at">    </span><span class="fu">groupId</span><span class="kw">:</span><span class="at"> </span><span class="st">"Treatment A"</span></span>
-<span id="cb7-8"><a href=""></a><span class="at">    </span><span class="fu">value</span><span class="kw">:</span><span class="at"> </span><span class="fl">43.1</span></span>
-<span id="cb7-9"><a href=""></a><span class="at">    </span></span>
-<span id="cb7-10"><a href=""></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">analysisId</span><span class="kw">:</span><span class="at"> AN001</span></span>
-<span id="cb7-11"><a href=""></a><span class="at">    </span><span class="fu">groupId</span><span class="kw">:</span><span class="at"> </span><span class="st">"Treatment B"</span></span>
-<span id="cb7-12"><a href=""></a><span class="at">    </span><span class="fu">value</span><span class="kw">:</span><span class="at"> </span><span class="fl">41.8</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href=""></a><span class="at">    </span><span class="fu">row</span><span class="kw">:</span><span class="at"> </span><span class="st">"Subjects with &gt;=1 TEAE"</span></span>
+<span id="cb7-4"><a href=""></a><span class="at">    </span><span class="fu">groupId</span><span class="kw">:</span><span class="at"> </span><span class="st">"Treatment A"</span></span>
+<span id="cb7-5"><a href=""></a><span class="at">    </span><span class="fu">value</span><span class="kw">:</span><span class="at"> </span><span class="st">"xx (xx.x%)"</span></span>
+<span id="cb7-6"><a href=""></a></span>
+<span id="cb7-7"><a href=""></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">analysisId</span><span class="kw">:</span><span class="at"> AN001</span></span>
+<span id="cb7-8"><a href=""></a><span class="at">    </span><span class="fu">row</span><span class="kw">:</span><span class="at"> </span><span class="st">"Subjects with &gt;=1 TEAE"</span></span>
+<span id="cb7-9"><a href=""></a><span class="at">    </span><span class="fu">groupId</span><span class="kw">:</span><span class="at"> </span><span class="st">"Treatment B"</span></span>
+<span id="cb7-10"><a href=""></a><span class="at">    </span><span class="fu">value</span><span class="kw">:</span><span class="at"> </span><span class="st">"xx (xx.x%)"</span></span>
+<span id="cb7-11"><a href=""></a></span>
+<span id="cb7-12"><a href=""></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">analysisId</span><span class="kw">:</span><span class="at"> AN001</span></span>
+<span id="cb7-13"><a href=""></a><span class="at">    </span><span class="fu">row</span><span class="kw">:</span><span class="at"> </span><span class="st">"Subjects with &gt;=1 TEAE"</span></span>
+<span id="cb7-14"><a href=""></a><span class="at">    </span><span class="fu">groupId</span><span class="kw">:</span><span class="at"> </span><span class="st">"Total"</span></span>
+<span id="cb7-15"><a href=""></a><span class="at">    </span><span class="fu">value</span><span class="kw">:</span><span class="at"> </span><span class="st">"xx (xx.x%)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><span style="color: #16a34a; font-weight: 600;">✓ Results</span></p>
 </div></div>
 <div style="margin-top: 0.8em; font-size: 0.78em; color: #555;">
 <p><strong>LinkML</strong> ensures both the specification and results follow the same schema — any tool that understands ARS can read and execute this.</p>
 </div>
 </section>
-<section id="the-ars-model-focus-on-some-of-the-core-classes-for-ard-generation" class="slide level2 smaller">
-<h2>The ARS Model: Focus on some of the core classes for ARD generation</h2>
-<div class="columns">
-<div class="column" style="width:65%;">
+<section id="ars-model-core-classes-for-ard-generation" class="slide level2 smaller ars-model-slide">
+<h2>ARS Model: Core classes for ARD generation</h2>
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
+<div class="ars-model-layout">
 <div class="cell" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">%%{init: {'theme':'default', 'themeVariables': { 'fontSize':'9px', 'fontFamily':'arial'}}}%%
+<pre class="mermaid mermaid-js">%%{init: {'theme':'default', 'flowchart': {'nodeSpacing': 24, 'rankSpacing': 32}, 'themeVariables': { 'fontSize':'12px', 'fontFamily':'arial'}}}%%
 classDiagram
-    direction TB
+  direction LR
 
     class ReportingEvent {
-        string id
-        string label
+    id
+    label
     }
     class Analysis {
-        string id
-        string label
-        string dataset
-        string analysisVariable
+    id
+    dataset
+    analysisVariable
     }
     class AnalysisSet {
-        string id
-        string label
-        string condition
+    condition
     }
     class DataSubset {
-        string id
-        string label
-        string condition
+    condition
     }
     class GroupingFactor {
-        string id
-        string groupingVariable
-        boolean dataDriven
+    groupingVariable
     }
     class AnalysisMethod {
-        string id
-        string label
+    label
     }
     class Operation {
-        string id
-        string label
-        string resultPattern
+    label
+    resultPattern
     }
 
-    ReportingEvent "1" --&gt; "*" Analysis : contains
-    Analysis "1" --&gt; "1" AnalysisSet : analysisSet
-    Analysis "1" --&gt; "0..1" DataSubset : dataSubset
-    Analysis "1" --&gt; "1..*" GroupingFactor : orderedGroupings
-    Analysis "1" --&gt; "1" AnalysisMethod : method
-    AnalysisMethod "1" --&gt; "1..*" Operation : operations
+    ReportingEvent --&gt; Analysis : contains
+    Analysis --&gt; AnalysisSet : analysisSet
+    Analysis --&gt; DataSubset : dataSubset
+    Analysis --&gt; GroupingFactor : orderedGroupings
+    Analysis --&gt; AnalysisMethod : method
+    AnalysisMethod --&gt; Operation : operations
 </pre>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-</div><div class="column" style="width:35%;">
-<div style="font-size: 0.65em; line-height: 1.5;">
+<div class="ars-model-definitions">
+<div class="ars-model-definition">
 <p><code>AnalysisSet</code> = <strong>who</strong> (population)</p>
+</div>
+<div class="ars-model-definition">
 <p><code>DataSubset</code> = <strong>which records</strong> (event filter)</p>
+</div>
+<div class="ars-model-definition">
 <p><code>GroupingFactor</code> = <strong>how to split</strong> (columns)</p>
+</div>
+<div class="ars-model-definition">
 <p><code>Operation</code> = <strong>what to compute</strong></p>
 </div>
-</div></div>
+</div>
+</div>
 </section>
 <section id="mapping-ars-back-to-our-table" class="slide level2 smaller">
 <h2>Mapping ARS Back to Our Table</h2>
+<div class="footer">
+<p>Orla Doyle</p>
+</div>
 <p>Every element of the AE table maps to an ARS class:</p>
 <table class="ae-table">
 <thead>
@@ -807,6 +900,9 @@ xx (xx.x)
 </section>
 <section id="same-recipe-new-kitchen-new-diners" class="slide level2 smaller">
 <h2>Same Recipe, New Kitchen, New Diners</h2>
+<div class="footer">
+<p>Gregory Chen</p>
+</div>
 <!--
   Use case for market access  (10 min — Gregory)
   Included from main_deck.qmd via {{< include market_access.qmd >}}.
@@ -827,11 +923,11 @@ xx (xx.x)
 <div class="card-row compact">
 <div class="card">
 <p><span class="card-title">The CSR kitchen cooks for one diner: the regulator</span></p>
-<p>One base ingredient, the trial data (SDTM, ADaM, CSR). One menu, written by the sponsor in the SAP. One meal, the CSR tables.</p>
+<p>One base ingredient, the trial data (SDTM, ADaM). One set menu, fixed by the sponsor in the SAP. One meal: the CSR tables and the integrated summaries (ISS, ISE).</p>
 </div>
 <div class="card orange">
 <p><span class="card-title">Market access serves a table of HTA assessors</span></p>
-<p>Each with their own tastes: a comparator, a population, a template. Same base ingredient, plus ingredients the sponsor does not grow: published aggregates from a literature review, real-world data, registries, expert elicitation. The recipe has to adapt, not just re-run.</p>
+<p>Each with their own tastes and allergies: a PICO (population, intervention, comparator, outcome), a template, and evidence they will not accept. Same base ingredient, plus ingredients from outside the trial, often not grown by the sponsor: published aggregates from a literature review, real-world data, registries, expert elicitation. The recipe has to adapt, not just re-run.</p>
 </div>
 </div>
 <div class="big-statement">
@@ -861,7 +957,10 @@ xx (xx.x)
 </section>
 <section id="two-asks-of-the-same-base-ingredient" class="slide level2 smaller">
 <h2>Two Asks of the Same Base Ingredient</h2>
-<div class="diagram-mid">
+<div class="footer">
+<p>Gregory Chen</p>
+</div>
+<div class="diagram-wide">
 <div class="cell" data-reveal="true" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -869,19 +968,21 @@ xx (xx.x)
 <div>
 <pre class="mermaid mermaid-js">%%{init: {'theme':'default', 'themeVariables': {'fontSize':'16px', 'fontFamily':'Source Sans Pro, arial'}}}%%
 flowchart LR
-  T["&lt;b&gt;Base ingredient&lt;/b&gt;&lt;br/&gt;trial data · SDTM, ADaM, CSR"]
+  T["&lt;b&gt;Base ingredient&lt;/b&gt;&lt;br/&gt;trial data, one or more studies&lt;br/&gt;SDTM, ADaM"]
   X["&lt;b&gt;Added ingredients&lt;/b&gt;&lt;br/&gt;literature aggregates, RWD,&lt;br/&gt;registries, expert elicitation"]
   subgraph HTA["HTA track"]
     direction LR
-    H1["&lt;b&gt;EU JCA&lt;/b&gt;&lt;br/&gt;relative effectiveness and&lt;br/&gt;safety per PICO, clinical only"] --&gt; H2["&lt;b&gt;National HTA&lt;/b&gt;&lt;br/&gt;added benefit, cost-&lt;br/&gt;effectiveness, budget impact"] --&gt; H3(["&lt;b&gt;Price, reimbursement,&lt;/b&gt;&lt;br/&gt;&lt;b&gt;patient access&lt;/b&gt;"])
+    H1["&lt;b&gt;EU JCA&lt;/b&gt;&lt;br/&gt;relative clinical effectiveness&lt;br/&gt;and safety per PICO, with its&lt;br/&gt;certainty; no value judgement"] --&gt; H2["&lt;b&gt;National HTA&lt;/b&gt;&lt;br/&gt;added benefit, cost-&lt;br/&gt;effectiveness, budget impact"] --&gt; H3(["&lt;b&gt;Price, reimbursement,&lt;/b&gt;&lt;br/&gt;&lt;b&gt;patient access&lt;/b&gt;"])
   end
   subgraph REG["Regulatory track"]
     direction LR
-    R1["&lt;b&gt;EMA&lt;/b&gt;&lt;br/&gt;benefit–risk on quality,&lt;br/&gt;safety, efficacy"] --&gt; R2(["&lt;b&gt;Marketing&lt;/b&gt;&lt;br/&gt;&lt;b&gt;authorisation&lt;/b&gt;"])
+    R1["&lt;b&gt;EMA&lt;/b&gt;&lt;br/&gt;quality, safety, efficacy;&lt;br/&gt;benefit–risk balance"] --&gt; R2(["&lt;b&gt;Marketing&lt;/b&gt;&lt;br/&gt;&lt;b&gt;authorisation&lt;/b&gt;"])
   end
+  T ~~~ X
   T --&gt; R1
-  T --&gt; H1
+  X -. very occasionally .-&gt; R1
   X --&gt; H1
+  T --&gt; H1
   classDef reg fill:#eff6ff,stroke:#1e3a8a,color:#1a1a1a;
   classDef hta fill:#fef5e7,stroke:#e67e22,color:#1a1a1a;
   classDef ev fill:#f0fdf4,stroke:#16a34a,color:#1a1a1a;
@@ -938,10 +1039,10 @@ The local standard of care; the population the local pathway treats, often a sub
 Ingredients
 </td>
 <td>
-Trial data; external evidence is the exception
+Trial data, one or more studies; RWE the exception
 </td>
 <td>
-Trial data re-cut per template, plus literature aggregates, real-world data, expert elicitation, costs and utilities: assembled by the sponsor, often not owned
+Trial data, often several data cuts, re-analysed per template; plus SLR aggregates, real-world data, expert elicitation, costs and utilities: assembled by the sponsor, often not owned
 </td>
 </tr>
 <tr>
@@ -949,10 +1050,10 @@ Trial data re-cut per template, plus literature aggregates, real-world data, exp
 Output
 </td>
 <td>
-One authorisation, one label
+One body, one authorisation, one label
 </td>
 <td>
-One dossier per body: added-benefit category, cost per QALY, negotiated price
+Many bodies, one dossier each: own populations, added-benefit category, cost per QALY, price and reimbursement
 </td>
 </tr>
 </tbody>
@@ -963,7 +1064,7 @@ One dossier per body: added-benefit category, cost per QALY, negotiated price
 <aside class="notes">
 <ul>
 <li>Purpose of the slide: enough context for the discussion, not an HTA course. The two tracks read the same base ingredient and ask different questions; the HTA question forces new analyses and new ingredients.</li>
-<li>Regulatory: benefit-risk on quality, safety and efficacy; the comparator is the one the sponsor justified at design, placebo or active. HTA: relative effectiveness against the comparator(s) that matter in each health system, plus national economic and organisational domains.</li>
+<li>Regulatory: quality, safety and efficacy, with the benefit-risk balance weighing efficacy against safety (quality is a prerequisite, assessed alongside); the comparator is the one the sponsor justified at design, placebo or active. HTA: relative effectiveness against the comparator(s) that matter in each health system, plus national economic and organisational domains.</li>
 <li>The Regulation’s Recital 4 names nine HTA domains: four clinical (health problem and current use, technical characteristics, relative safety, relative clinical effectiveness) and five non-clinical (cost and economic evaluation, ethical, organisational, social, legal). The JCA covers the four clinical domains only (Art. 2(6)); the five non-clinical domains and all pricing and reimbursement decisions stay national (Art. 1(2), Recital 14).</li>
 <li>Timing: the JCA runs in parallel with the centralised procedure (dossier due at the latest 45 days before the envisaged CHMP opinion, Art. 10(1)); the report must be endorsed no later than 30 days after the Commission decision granting the authorisation (Art. 11(1)(a)) and is published after a procedural check; observed lag so far 40 to 69 days. National HTA and pricing follow the authorisation, and that is where most of the delay to access sits: EFPIA W.A.I.T. 2025 (published May 2026, medicines authorised 2021–2024) gives an EU mean of 597 days from authorisation to availability, median 532, ranging from 56 days in Germany to 1,201 in Romania.</li>
 <li>Value proposition: in Germany the sponsor must demonstrate added benefit (Zusatznutzen) against the appropriate comparator therapy, on the basis of evidence it submits (§ 35a SGB V); in England the economic case is judged against NICE’s cost-per-QALY range, £25,000 to £35,000 since April 2026 (manual PMG36 §6.3). Both are claims the sponsor has to evidence, on top of the regulatory case.</li>
@@ -983,6 +1084,9 @@ One dossier per body: added-benefit category, cost per QALY, negotiated price
 </section>
 <section id="the-eu-joint-clinical-assessment-in-one-picture" class="slide level2 smaller">
 <h2>The EU Joint Clinical Assessment in One Picture</h2>
+<div class="footer">
+<p>Gregory Chen</p>
+</div>
 <div class="columns">
 <div class="column" style="width:46%;">
 <div class="cell" data-reveal="true" data-layout-align="default">
@@ -1048,6 +1152,9 @@ timeline
 </section>
 <section id="what-hta-analytics-look-like-in-practice" class="slide level2 smaller">
 <h2>What HTA Analytics Look Like in Practice</h2>
+<div class="footer">
+<p>Gregory Chen</p>
+</div>
 <div class="card-row compact">
 <div class="card orange">
 <p><span class="card-title">Volume</span></p>
@@ -1061,30 +1168,30 @@ timeline
 <div class="card green">
 <p><span class="card-title">Ingredients that are not trial data: a meal rebuilt from its photograph</span></p>
 <ul>
-<li>Comparators the trial never had: literature aggregates, external controls from real-world data and registries, expert elicitation where data are absent <sup class="cite">[5]</sup></li>
+<li>Comparators the trial never had: literature aggregates, RWD and registry controls, expert elicitation <sup class="cite">[5]</sup></li>
 <li>Survival curves digitised from a PDF and turned back into patients who never existed, then fed to NMA or population adjustment <sup class="cite">[6]</sup></li>
 <li><strong>Three of the first four</strong> published JCAs rest on indirect comparisons; one on an effective sample size below six <sup class="cite">[7]</sup></li>
-<li>Template rules decide what exists: 10 patients and 10 events per subgroup, interaction p below 0.05, incidence above 5% <sup class="cite">[2,8]</sup></li>
+<li>Thresholds are defaults, not a shield: 10 patients per subgroup, 10 events in one, interaction p &lt; 0.05, incidence ≥ 5%. Filtered at 5%, tarlatamab’s JCA has no SOC breakdown of AE deaths <sup class="cite">[2,8,11]</sup></li>
 </ul>
 </div>
 <div class="card purple">
 <p><span class="card-title">Outputs that are not tables</span></p>
 <ul>
-<li>Extrapolation parameters, transition probabilities and utilities feed a cost-effectiveness model; NICE requires it fully executable, and its HTA assessors re-analyse it in <strong>93 of 100</strong> appraisals <sup class="cite">[9,10]</sup></li>
+<li>Extrapolation parameters, transition probabilities and utilities feed a national cost-effectiveness model, outside the JCA’s clinical scope; NICE requires it fully executable, and its HTA assessors re-analyse it in <strong>93 of 100</strong> appraisals <sup class="cite">[9,10]</sup></li>
 <li>Countries file on different data cuts. Nobody requires an index of everything produced; the company needs one to know the totality of its own evidence</li>
-<li>A dossier is read by HTA assessors who never see the patient data</li>
+<li>A dossier is read by HTA assessors who see at most patient listings, never analysis datasets they could re-run</li>
 </ul>
 </div>
 </div>
 <div class="src-note">
-<p>[1] Schweitzer et al., Eur J Health Econ 2024;25(5): Modules 1–4 from 750 to 3,500 pages on average, “in individual cases 20,000 to even 40,000 pages”. [2] G-BA Module 4 dossier template, version 18 Nov 2025, §4.2.5.5, §4.3.1.3. [3] G-BA, empagliflozin Modul 4A Anhang 4-G, 28 Mar 2022, 926 pages; nintedanib Anhang 4-G, Feb 2025, 349 pages. [4] Schweitzer et al.&nbsp;2024 (vfa, Dec 2022: 77% of submitted analyses not considered). [5] HTACG methodological guideline for quantitative evidence synthesis (8 Mar 2024); NICE DSU TSD 26 (expert elicitation). [6] Guyot et al., BMC Med Res Methodol 2012;12:9; HTACG practical guideline (8 Mar 2024). [7] Published JCA reports, Jun–Sep 2026 (tovorafenib ESS 5.82). [8] HTACG JCA dossier guidance (28 Nov 2024), App. A.2; IQWiG General Methods 8.0 §10.3.9. [9] NICE technology appraisal manual PMG36 §5.5.15. [10] Carroll et al., Value Health 2017;20(6): 100 single technology appraisals, exploratory analyses of the company’s model.</p>
+<p>[1] Schweitzer et al., Eur J Health Econ 2024;25(5): Modules 1–4 from 750 to 3,500 pages on average, “in individual cases 20,000 to even 40,000 pages”. [2] G-BA Module 4 dossier template, version 18 Nov 2025, §4.2.5.5, §4.3.1.3. [3] G-BA, empagliflozin Modul 4A Anhang 4-G, 28 Mar 2022, 926 pages; nintedanib Anhang 4-G, Feb 2025, 349 pages. [4] Schweitzer et al.&nbsp;2024 (vfa, Dec 2022: 77% of submitted analyses not considered). [5] HTACG methodological guideline for quantitative evidence synthesis (8 Mar 2024); NICE DSU TSD 26 (expert elicitation). [6] Guyot et al., BMC Med Res Methodol 2012;12:9; HTACG practical guideline (8 Mar 2024). [7] Published JCA reports, Jun–Sep 2026 (tovorafenib ESS 5.82). [8] HTACG JCA dossier guidance (28 Nov 2024), App. A.2; IQWiG General Methods 8.0 §10.3.9. [9] NICE technology appraisal manual PMG36 §5.5.15. [10] Carroll et al., Value Health 2017;20(6): 100 single technology appraisals, exploratory analyses of the company’s model. [11] Tarlatamab JCA report, Table 98 note a.</p>
 </div>
 <aside class="notes">
 <ul>
 <li>The German numbers are the strongest case for “structure at scale”: the dossier grew 4 to 5 times after 2020, mostly AE and subgroup analyses, and IQWiG disregards a third of AE analyses and nearly three quarters of subgroup categories. Around €800k to €1m and 12 months per dossier (vfa 2022; Schweitzer 2024).</li>
 <li>Macabeo et al.&nbsp;(PharmacoEconomics Open 2024;8(1)): 22% of 543 oncology HTA reports across five countries used an indirect comparison; 30% of those were accepted and about half were left unclear. The JCA experience so far is harsher: tovorafenib’s MAIC matched on an effective sample size of 5.82.</li>
 <li>The middle column is where ARS, as designed, stops applying: the ingredients are not ADaM and the methods carry assumptions (effect modifiers, weights, priors) that a “method + operation” model does not capture. The photograph line is the one metaphor extension worth making: pseudo-IPD reconstruction really is recovering a dish from a picture of it.</li>
-<li>Right column: the model is the consumer of many results, and the HTA assessor re-analyses the model while never seeing patient data. The data-cut point is about the company’s own sanity: a filing in one country may rest on interim analysis 2, in another on the final cut; efficient production and an accurate index are for the sponsor to know what it has produced, not because anyone mandates it.</li>
+<li>Right column: the model is the consumer of many results, and the HTA assessor re-analyses the model without the analysis datasets (at most CSR patient listings). The data-cut point is about the company’s own sanity: a filing in one country may rest on interim analysis 2, in another on the final cut; efficient production and an accurate index are for the sponsor to know what it has produced, not because anyone mandates it.</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -1100,6 +1207,9 @@ timeline
 </section>
 <section id="the-analysis-space-is-combinatorial" class="slide level2 smaller">
 <h2>The Analysis Space Is Combinatorial</h2>
+<div class="footer">
+<p>Gregory Chen</p>
+</div>
 <div class="factor-row">
 <div class="factor" style="flex: 1.45;">
 <p><span class="f-title">Analysis families</span></p>
@@ -1155,7 +1265,7 @@ timeline
 </div>
 </div>
 <div class="big-statement" style="font-size: 1.25em; margin-top: 0.5em;">
-<p>= thousands of result records, and every one is a PICO plus an analysis: population, intervention, comparator, outcome. <span class="sub">ARS names the same ideas differently: analysis set, grouping, data subset, method. Same recipe structure, different vocabulary: aligning it, and extending it where HTA has words ARS does not, is the next two slides.</span></p>
+<p>= thousands of result records, each one analysis serving a PICO: population, intervention, comparator, outcome. <span class="sub">ARS names the same ideas differently: analysis set, grouping, data subset, method. Same recipe structure, different vocabulary: aligning it, and extending it where HTA has words ARS does not, is the next two slides.</span></p>
 </div>
 <aside class="notes">
 <ul>
@@ -1179,6 +1289,9 @@ timeline
 </section>
 <section id="what-ars-names-and-what-hta-would-add" class="slide level2 smaller">
 <h2>What ARS Names, and What HTA Would Add</h2>
+<div class="footer">
+<p>Gregory Chen</p>
+</div>
 <table class="cmp-table dense xdense">
 <thead>
 <tr>
@@ -1344,10 +1457,13 @@ The code and its environment: reproducibility for the sponsor, legibility for an
 </section>
 <section id="what-ars-has-no-word-for-yet" class="slide level2 smaller">
 <h2>What ARS Has No Word For Yet</h2>
+<div class="footer">
+<p>Gregory Chen</p>
+</div>
 <div class="card-row">
 <div class="card orange">
 <p><span class="card-title">Criteria for execution</span></p>
-<p>“PT only if incidence ≥ 5%.” “Subgroup curve only if the interaction is significant.” The rule tests a <em>result</em>, not a record, so no where-clause can express it. The template decides what exists.</p>
+<p>“PT only if incidence ≥ 5%.” “Subgroup curve only if the interaction is significant.” The rule tests a <em>result</em>, not a record, so no where-clause can express it. The template decides what is shown by default.</p>
 <p><strong>Record the rule, or only its outcome?</strong></p>
 </div>
 <div class="card purple">
@@ -1374,7 +1490,7 @@ The code and its environment: reproducibility for the sponsor, legibility for an
 <aside class="notes">
 <ul>
 <li>Position of the slide: these four are the concepts ARS v1.0 has no class for, as opposed to the previous slide’s mechanisms that exist but lack vocabulary. Tooling for some of them exists outside ARS (the hta-pharma packages encode AMNOG criteria; survival packages hand parameters to models), which is why this is a discussion, not a gap list: nothing here is integrated into the standard.</li>
-<li>Criteria: the G-BA and JCA rules (10 patients and 10 events, interaction p &lt; 0.05, incidence ≥ 5%) all test results, not records.</li>
+<li>Criteria: the G-BA and JCA rules (10 patients per subgroup and 10 events in one, interaction p &lt; 0.05, incidence ≥ 5%) all test results, not records.</li>
 <li>Provenance: the tarlatamab MAIC code reads a file literally called pseudo_ipd.csv. Nothing in the dossier’s metadata says how that file was made. The tovorafenib error was a switched event rate copied from a publication.</li>
 <li>Environment: this row feeds Prompt 3 in the discussion. The version question feeds the delta-dossier reality: a JCA report may not exist when the German dossier is due (EFSPI 2025).</li>
 <li>Hand over to the “who asks” slide: before deciding what to record, look at who is asking for anything at all.</li>
@@ -1393,6 +1509,9 @@ The code and its environment: reproducibility for the sponsor, legibility for an
 </section>
 <section id="who-asks-for-data-and-code-today" class="slide level2 smaller">
 <h2>Who Asks for Data and Code Today</h2>
+<div class="footer">
+<p>Gregory Chen</p>
+</div>
 <table class="cmp-table dense">
 <thead>
 <tr>
@@ -1455,7 +1574,7 @@ G-BA template (Nov 2025) cross-references the EU dossier; NICE position statemen
 </tbody>
 </table>
 <div class="big-statement" style="margin-top: 0.4em; font-size: 1.35em;">
-<p>Nobody asks for ARS: not one regulator, not one HTA assessor. And no HTA assessor has the data. <span class="sub">FDA can re-execute a sponsor’s analysis and EMA is heading there; no HTA body can, by design. So “reproducible” cannot mean at the G-BA what it means at the FDA. What is left is legibility: what was done, for whom, against what, at which cut.</span></p>
+<p>Nobody asks for ARS: not one regulator, not one HTA assessor. And no HTA assessor has the ADaM. <span class="sub">FDA can re-execute a sponsor’s analysis and EMA is heading there; no HTA body can, by design. So “reproducible” cannot mean at the G-BA what it means at the FDA. What is left is legibility: what was done, for whom, against what, at which cut.</span></p>
 </div>
 <div class="src-note">
 <p>[1] FDA Study Data Technical Conformance Guide v6.2.1 (Jun 2026) §4.1.2.10. [2] FDA Data Standards Catalog v11.0 (Mar 2025); Federal Register, 9 Apr 2025 (Dataset-JSON request for comments). [3] EMA, clinical study data pilot Q&amp;A (EMA/658116/2022, rev. 20 Jan 2026) §3.3–3.4; NDSG annual report 2025 (Jan 2026). [4] EMA Network Data Steering Group workplan 2026–2028 (Feb 2026); EMA Programming Document 2026–28. [5] HTACG JCA dossier guidance (28 Nov 2024) App. B.2, D.3; published JCA dossiers Jun–Sep 2026. [6] HTACG, general principles on the use of AI in JCA dossiers (adopted 15 Jul 2026). [7] G-BA Module 4 template (18 Nov 2025) and dossier format document (8 Apr 2026). [8] NICE technology appraisal manual PMG36 §5.5.15 (updated 31 Mar 2026). [9] NICE ECD11 (15 Aug 2024).</p>
@@ -1484,6 +1603,9 @@ G-BA template (Nov 2025) cross-references the EU dossier; NICE position statemen
 </section>
 <section id="where-this-leaves-us" class="slide level2 smaller">
 <h2>Where This Leaves Us</h2>
+<div class="footer">
+<p>Gregory Chen</p>
+</div>
 <div class="card-row">
 <div class="card green">
 <p><span class="card-title">Re-use is highest in HTA</span></p>
@@ -1525,263 +1647,35 @@ G-BA template (Nov 2025) cross-references the EU dossier; NICE position statemen
 <h1>Discussion and Q&amp;A</h1>
 <!-- 10 min section — Gregory -->
 </section>
-<section id="discussion-prompts" class="slide level2 smaller">
-<h2>Discussion Prompts</h2>
-<!--
-  Discussion prompts, Q&A and wrap up  (10 min — Gregory, chair)
-  Included from main_deck.qmd. No YAML front matter on purpose.
-  Run order: overview → Prompt 1 and Prompt 5 live (about 3 min each) → wrap-up. Prompts 2, 3, 4 are on the table if the room goes there.
--->
-<div class="big-statement" style="margin-top: 0; font-size: 1.3em;">
-<p>Same recipe, new diners. What is the standard <em>for</em>, once it leaves the CSR?</p>
+<section id="from-structured-results-to-trusted-evidence" class="slide level2 smaller conference-prompts-slide">
+<h2>From Structured Results to Trusted Evidence</h2>
+<div class="conference-prompts-lead">
+<p>ARS can make an analysis <strong>computable</strong>. What makes it <strong>usable, admissible, and trusted</strong> beyond the team that produced it?</p>
 </div>
-<div style="font-size: 1.3em; line-height: 1.6;">
-<ol type="1">
-<li><strong>Purpose.</strong> Reproducibility, efficiency, or legibility: one euro, you cannot split it <span class="tag t-fit">live</span></li>
-<li><strong>The AI era.</strong> Structured results do not prevent hallucination; they make it attributable <span class="tag t-fit">live</span></li>
-<li><strong>Essential metadata.</strong> You are the HTA assessor: the one thing you want machine-readable first <span class="tag t-stretch">if time</span></li>
-<li><strong>The environment nobody re-runs.</strong> One recipe, two compliant tools, two numbers <span class="tag t-stretch">if time</span></li>
-<li><strong>Extend, profile, or sibling.</strong> The missing concept has been built once, outside the standard <span class="tag t-stretch">if time</span></li>
-</ol>
+<div class="conference-prompts-grid">
+<div class="conference-prompt">
+<p><strong>01 · Efficiency ↔︎ readability</strong></p>
+<p>Can we accelerate production without making the result harder for a statistician, reviewer, or model to inspect?</p>
 </div>
-<aside class="notes">
-<ul>
-<li>Recruit before you ask: during the break, ask one market access person and one CSR statistician one question each and tell them you will come to them first.</li>
-<li>0:00–1:30, Prompt 1: forced choice, counted hands. Count each option aloud, then ask the smallest group to defend itself.</li>
-<li>1:30–2:30: “Now vote as the HTA assessor.” If the room shifts, say it out loud: we just discovered we are building this for ourselves.</li>
-<li>2:30–4:30, Prompt 5: put the claim on screen and ask “who wants to argue with that?”, not “any thoughts?”.</li>
-<li>4:30–5:30: to the two named people: “One sentence. What would you have to see to switch?”</li>
-<li>Never open the floor with “any questions?”. Ask “who has tried this and watched it break?”.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
+<div class="conference-prompt">
+<p><strong>02 · Submission ↔︎ evidence</strong></p>
+<p>Should a regulatory or HTA submission carry the ARS/ARD, the rendered output, the execution environment, or all three?</p>
+</div>
+<div class="conference-prompt">
+<p><strong>03 · Automation ↔︎ validation</strong></p>
+<p>Does machine-readable metadata reduce validation effort, move it earlier, or create a new object that must be validated?</p>
+</div>
+<div class="conference-prompt">
+<p><strong>04 · Results ↔︎ decisions</strong></p>
+<p>Which PICO, comparator, estimand, data cut, uncertainty, and presentation details must be machine-readable for an HTA assessor to challenge the result?</p>
+</div>
+</div>
+<div class="conference-prompts-close">
+<p><strong>The question for the room:</strong> where should the standard stop, and what governed layer should come next?</p>
+</div>
 </section>
-<section id="prompt-1-one-euro" class="slide level2 smaller">
-<h2>Prompt 1: One Euro</h2>
-<div class="big-statement" style="margin-top: 0.2em;">
-<p>Reproducibility, efficiency to reproduce, or legibility. One euro. You cannot split it.</p>
-</div>
-<div class="prompt-facts">
-<ul>
-<li><strong>Reproducibility.</strong> Same ingredients, same recipe, same number. No HTA assessor holds the ingredients.</li>
-<li><strong>Efficiency.</strong> The sponsor re-cooks for the next diner in days, not months. Mostly an internal benefit.</li>
-<li><strong>Legibility.</strong> An HTA assessor, or a model, can read what was done, for whom, against what, at which cut.</li>
-</ul>
-</div>
-<div class="big-statement" style="font-size: 1.3em;">
-<p>Vote as the sponsor. Then vote as the HTA assessor. <span class="sub">If the room shifts, we have just learned who we are building this for.</span></p>
-</div>
-<aside class="notes">
-<ul>
-<li>Context to say aloud, not show: FDA and PMDA take datasets and programs; EMA plans to from 2026–2028; JCA and national bodies take documents. In the first published JCA the HTA assessors could not reproduce most of the naive safety comparisons because event rates copied from the comparator’s publication had been switched (tovorafenib report, Appendix D.2, request 4).</li>
-<li>Count the hands for each option out loud. Ask the smallest group to defend itself: minority defence is more interesting than majority agreement.</li>
-<li>Follow-up if quiet: does a standard built for the regulator’s question also serve the HTA assessor’s, or are we assuming it does?</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="prompt-5-attributable-not-prevented" class="slide level2 smaller">
-<h2>Prompt 5: Attributable, Not Prevented</h2>
-<div class="big-statement" style="margin-top: 0.2em;">
-<p>Structured results do not prevent hallucination. They make it attributable. <span class="sub">Who wants to argue with that?</span></p>
-</div>
-<div class="prompt-facts">
-<ul>
-<li>A model can already read a PDF table. It cannot prove which cell it read. Result identifiers are the audit trail, not a concession.</li>
-<li>The first JCA’s error was a switched ingredient, copied by hand from a publication. No model hallucinated that. A result record would have made it findable, not less wrong.</li>
-<li>HTACG, July 2026: every AI-assisted step documented, prompts kept, a human responsible. Nothing yet on what makes the <em>numbers</em> checkable.</li>
-</ul>
-</div>
-<div class="big-statement" style="font-size: 1.3em;">
-<p>What would an HTA assessor need to see to trust an AI-drafted dossier? <span class="sub">Is “readable by a machine” a design requirement for the standard, or a side effect?</span></p>
-</div>
-<aside class="notes">
-<ul>
-<li>Put the claim on screen and wait. Silence after a claim is shorter than silence after an invitation.</li>
-<li>HTACG principles (adopted 15 Jul 2026): “None of the steps in the dossier preparation or analysis process should be fully automated without a human being ultimately responsible”; tool name, version, date, developer and purpose for every AI-assisted step; “all prompts used in AI tools are recorded and made available if requested”.</li>
-<li>Proofs of concept exist for drafting CSR narrative from ARS and ARD records (PharmaSUG 2025) and for generating TFL code from ARS metadata (PHUSE 2026). None has been evaluated by an HTA assessor.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="prompt-2-the-one-thing" class="slide level2 smaller">
-<h2>Prompt 2: The One Thing</h2>
-<div class="big-statement" style="margin-top: 0.2em;">
-<p>You are the HTA assessor. Twelve PICOs, three thousand pages, no patient data, one question to answer. <span class="sub">Name the one thing in that dossier you want machine-readable first. Not the list. The one thing.</span></p>
-</div>
-<div class="prompt-facts">
-<ul>
-<li>ARS already has the hook: implementer-defined categories on any analysis or output. A sponsor could tag PICO, body, cut and template this afternoon.</li>
-<li>Implementer-defined means no two sponsors tag alike, and no HTA assessor can filter across dossiers.</li>
-<li>Each field costs a statistician time now; the benefit lands later, and often with someone else.</li>
-</ul>
-</div>
-<div class="big-statement" style="font-size: 1.3em;">
-<p>Which of PICO, HTA body, data cut and template should become controlled terminology, and who decides?</p>
-</div>
-<aside class="notes">
-<ul>
-<li>Fallback if the room is quiet after Prompt 1: the scenario is concrete and everyone has an answer.</li>
-<li>The four category IDs on the mapping slide were “us making it up”; this prompt asks which of them should stop being made up.</li>
-<li>Second question if needed: what is the minimum set that would change an HTA assessor’s decision?</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="prompt-3-the-environment-nobody-re-runs" class="slide level2 smaller">
-<h2>Prompt 3: The Environment Nobody Re-runs</h2>
-<div class="big-statement" style="margin-top: 0.2em;">
-<p>One recipe, two compliant tools, two different numbers. <span class="sub">At which decimal place does “the same result” stop being guaranteed, and whose job is it to say?</span></p>
-</div>
-<div class="prompt-facts">
-<ul>
-<li>ARS has one field for the environment: the language and its version. No packages, no lockfile, no run date.</li>
-<li>The number depends on more than that: ties, rounding, missing-data rules, default arguments, a seed in a Bayesian synthesis.</li>
-<li>In the published JCA dossiers, code arrived as PDF. Nobody asked for a lockfile. Nobody complained.</li>
-</ul>
-</div>
-<div class="big-statement" style="font-size: 1.3em;">
-<p>Name one thing you record about the computational environment that anyone outside your team has ever read.</p>
-</div>
-<aside class="notes">
-<ul>
-<li>This is the chair’s own open question. The non-obvious answer: the environment matters even though nobody re-runs, because the number itself depends on it. That is also the sharpest available answer to “what metadata is essential”.</li>
-<li>Re-running in the reviewer’s browser is no longer hypothetical: the R Consortium’s Pilot 4 put a WebAssembly component in front of FDA reviewers with favourable feedback.</li>
-<li>Gently puncture “any compliant tool gives the same result” without contradicting the earlier section: the standard specifies the operation, not the numerics.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="prompt-4-extend-profile-or-sibling" class="slide level2 smaller">
-<h2>Prompt 4: Extend, Profile, or Sibling?</h2>
-<div class="big-statement" style="margin-top: 0.2em;">
-<p>The concept ARS most clearly lacks, a rule that decides whether an analysis exists at all, has already been built once, outside the standard, for the German template.</p>
-</div>
-<div class="prompt-facts">
-<ul>
-<li>HTA changes the ingredients, the methods and the consumers, not only the volume.</li>
-<li>ARS has the mechanisms: categories, reason codes, document references. It does not have the vocabulary.</li>
-<li>Nobody has asked for it: not a regulator, not an HTA assessor.</li>
-</ul>
-</div>
-<div class="big-statement" style="font-size: 1.3em;">
-<p>Extension, profile, or sibling with a shared core? <span class="sub">And what stops the missing concept becoming part of the standard: the model, the governance, or the demand?</span></p>
-</div>
-<aside class="notes">
-<ul>
-<li>The open-source precedent: hta-pharma’s chefCriteria ships inclusion criteria on p-values and on the number of subjects with events, exactly the “criteria for execution” concept.</li>
-<li>Candidate owners if the room goes there: CDISC (the model), the HTA Coordination Group (the demand), PHUSE and pharmaverse (the tooling), ISPOR and R-HTA (the economics side). Do not let it become a listing exercise; the second question is the real one.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="wrap-up" class="slide level2 smaller">
-<h2>Wrap Up</h2>
-<div class="card-row">
-<div class="card orange">
-<p><span class="card-title">What we are asking you</span></p>
-<ul>
-<li>Take <strong>one</strong> HTA deliverable, a subgroup annex or a single PICO, express it in ARS, and tell the working group exactly where it broke</li>
-<li>Decide what <em>essential</em> means before deciding what <em>complete</em> means</li>
-<li>Bring the HTA assessor’s question to the standard, not only the sponsor’s</li>
-</ul>
-</div>
-</div>
-<div class="big-statement">
-<p>We standardised the base ingredient twenty years ago. The recipe is still buried in the code, and the meal is still a PDF. <span class="sub">The analyses will be produced either way. The only choice is whether they arrive as three thousand pages or three thousand records. Over to you.</span></p>
-</div>
-<aside class="notes">
-<ul>
-<li>Not “here is the solution”: what we may want to achieve, what existing tools already give us, and where the gaps are. Say that in one breath, then the closing line.</li>
-<li>Hand over to the thank-you slide.</li>
-</ul>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
-</section>
-<section id="thank-you" class="slide level2 smaller">
+<section id="thank-you" class="slide level2">
 <h2>Thank You</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Orla Doyle</strong><br>
-<!-- Add contact/LinkedIn --></p>
-</div><div class="column" style="width:50%;">
-<p><strong>Gregory <!-- Add surname --></strong><br>
-<!-- Add contact/LinkedIn --></p>
-</div></div>
-<div class="big-statement" style="margin-top: 0.8em;">
-<p>Still on the table <span class="sub">Find us after the session, or bring one of these back into the room now.</span></p>
-</div>
-<div class="prompt-facts">
-<ul>
-<li><strong>Essential metadata.</strong> Which of PICO, HTA body, data cut and template should become controlled terminology, and who decides?</li>
-<li><strong>The environment nobody re-runs.</strong> One recipe, two compliant tools, two numbers: whose job is it to say when they must agree?</li>
-<li><strong>Extend, profile, or sibling.</strong> The missing concept exists outside the standard; what stops it getting in: the model, the governance, or the demand?</li>
-<li><strong>Your own.</strong> One HTA deliverable, expressed in ARS, and the exact place it broke.</li>
-</ul>
-</div>
 
 </section></section>
     </div>

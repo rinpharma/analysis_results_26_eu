@@ -545,3 +545,13 @@ sup.cite { font-size: 0.65em; color: #2563eb; font-weight: 600; margin-left: 1px
   line-height: 1.4;
   list-style: none;
 }
+
+/* Introductions slide: gutter between speakers (columns are inline-blocks, so margin, not gap);
+   role on two lines aligned after the label */
+.reveal .column.intro-right { margin-left: 5%; }
+.reveal .columns:has(> .intro-right) li { hyphens: manual; -webkit-hyphens: manual; }
+.reveal .role-lines {
+  display: inline-block;
+  vertical-align: top;
+  max-width: calc(100% - 3.2em);
+}
