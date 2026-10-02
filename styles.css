@@ -134,14 +134,14 @@
 .ard-results table {
   width: 100%;
   table-layout: fixed;
-  font-size: 0.9em;
+  font-size: 0.7em;
 }
 .ard-results th, .ard-results td {
   overflow-wrap: anywhere;
   padding: 4px 5px;
   vertical-align: top;
 }
-.ard-results th { font-size: 0.78em; }
+.ard-results th { font-size: 0.85em; }
 .ard-results th:nth-child(1) { width: 9%; }
 .ard-results th:nth-child(2) { width: 13%; }
 .ard-results th:nth-child(3) { width: 14%; }
