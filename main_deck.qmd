@@ -17,21 +17,21 @@ format:
 # Introductions {.intro-slide}
 
 ::: {.columns}
-::: {.column width="50%"}
+::: {.column width="47.5%"}
 ### Orla Doyle 🇮🇪
 
-- **Role:** Executive Director, Head of Scientific Product Engineering, AQS
+- **Role:** [Executive Director<br>Head of Scientific Product Engineering<br>AQS]{.role-lines}
 - **Organisation:** Novartis
 - **Focus area:** Develops workflows and products for clinical trial reporting
 - **Based in:** Dublin, Ireland
 :::
 
-::: {.column width="50%"}
+::: {.column .intro-right width="47.5%"}
 ### Gregory Chen 🇨🇭
 
-- **Role:** Principal Statistician (Director), HTA Statistics
-- **Organisation:** Merck
-- **Focus area:** <!-- Add focus area -->
+- **Role:** [Principal Statistician (Director)<br>BARDS HTA Statistics]{.role-lines}
+- **Organisation:** MSD
+- **Focus area:** Integrated evidence planning and synthesis via statistical techniques for HTA/value proposition/market access
 - **Based in:** Basel, Switzerland
 :::
 :::
