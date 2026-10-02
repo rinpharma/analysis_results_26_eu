@@ -36,6 +36,74 @@
   font-size: 0.9em;
 }
 
+.timeline-slide .timeline {
+  --timeline-accent: #176b75;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 2.5em;
+  position: relative;
+  text-align: center;
+}
+.timeline-slide .timeline::before {
+  content: "";
+  position: absolute;
+  top: 190px;
+  left: 10%;
+  right: 10%;
+  border-top: 3px solid #a6bdc1;
+}
+.timeline-step { min-width: 0; }
+.timeline-art {
+  height: 168px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+.timeline-art p { margin: 0; }
+.timeline-art img {
+  display: block;
+  max-width: 100%;
+  max-height: 168px;
+  object-fit: contain;
+}
+.timeline-idea {
+  color: var(--timeline-accent);
+  font-size: 2.5em;
+  font-weight: 700;
+}
+.timeline-number {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  background: var(--timeline-accent);
+  color: #fff;
+  font-size: 0.85em;
+  font-weight: 700;
+}
+.timeline-number p { margin: 0; }
+.timeline-step > p {
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* Presenter labels added to included section slides */
+.reveal .slides section > .footer:not(.footer-default) {
+  position: absolute;
+  right: 0;
+  bottom: 0.35em;
+  z-index: 2;
+  margin: 0;
+  color: #666;
+  font-size: 0.72em;
+  line-height: 1;
+}
+
 /* AE summary table */
 .ae-table { 
   font-size: 1.0em; 
@@ -62,6 +130,26 @@
 .ae-table tbody tr:nth-child(even) { 
   background-color: #f5f5f5; 
 }
+
+.ard-results table {
+  width: 100%;
+  table-layout: fixed;
+  font-size: 0.9em;
+}
+.ard-results th, .ard-results td {
+  overflow-wrap: anywhere;
+  padding: 4px 5px;
+  vertical-align: top;
+}
+.ard-results th { font-size: 0.78em; }
+.ard-results th:nth-child(1) { width: 9%; }
+.ard-results th:nth-child(2) { width: 13%; }
+.ard-results th:nth-child(3) { width: 14%; }
+.ard-results th:nth-child(4) { width: 14%; }
+.ard-results th:nth-child(5) { width: 12%; }
+.ard-results th:nth-child(6) { width: 19%; }
+.ard-results th:nth-child(7) { width: 8%; }
+.ard-results th:nth-child(8) { width: 11%; }
 
 /* ARS attribute colour tags */
 .tag { 
@@ -166,6 +254,15 @@
 .reveal .slides section.intro-slide {
   top: 0 !important;
   transform: translate(-50%, 0) !important;
+}
+
+.reveal .slides section.intro-slide > .intro-disclaimer {
+  bottom: 0.9em;
+  font-size: 0.42em;
+  left: 0;
+  line-height: 1.2;
+  right: 0;
+  text-align: left;
 }
 
 .ars-model-layout {

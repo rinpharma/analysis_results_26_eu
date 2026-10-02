@@ -36,6 +36,10 @@ format:
 :::
 :::
 
+::: {.footer .intro-disclaimer}
+The speakers are sharing their personal views and experiences. Any opinions expressed are solely those of the speaker and do not necessarily reflect the views, positions or policies of our employers, nor imply endorsement by our employers.
+:::
+
 ---
 
 # Demystifying ARS

@@ -1,6 +1,4 @@
 ---
-title: "Analysis Results Standard"
-subtitle: "From Documents to Data"
 format:
   revealjs:
     theme: default
@@ -12,6 +10,65 @@ format:
     mermaid:
       theme: default
 ---
+
+# How we got here {.timeline-slide}
+
+::: {.footer}
+Orla Doyle
+:::
+
+::: {.timeline}
+::: {.timeline-step .fragment}
+::: {.timeline-art .timeline-idea}
+ARS?
+:::
+::: {.timeline-number}
+1
+:::
+**New idea**  
+Let's use ARS
+:::
+
+::: {.timeline-step .fragment}
+::: {.timeline-art}
+![](images/ars_complex.jpg){fig-alt="A wall of interconnected notes"}
+:::
+::: {.timeline-number}
+2
+:::
+**ARS is complex**
+:::
+
+::: {.timeline-step .fragment}
+::: {.timeline-art}
+![](images/ars_custom.jpg){fig-alt="Building a custom approach"}
+:::
+::: {.timeline-number}
+3
+:::
+**Build our own**
+:::
+
+::: {.timeline-step .fragment}
+::: {.timeline-art}
+![](images/ars_regret.jpg){fig-alt="Regret after building our own"}
+:::
+::: {.timeline-number}
+4
+:::
+**Despair**
+:::
+
+::: {.timeline-step .fragment}
+::: {.timeline-art}
+![](images/ars_cdisc.png){fig-alt="CDISC Analysis Results Standard logo"}
+:::
+::: {.timeline-number}
+5
+:::
+**ARS v1.0 adoption**
+:::
+:::
 
 # A familiar friend in clinical trial reporting - the adverse events table
 
@@ -375,14 +432,12 @@ Tooling to check the schema defining the structure and rules for writing valid r
 Orla Doyle
 :::
 
-::: {.columns}
-::: {.column width="50%"}
 **ARS Specification (Recipe)**
 
 ```yaml
 analysis:
   id: AN001
-  label: ">=1 TEAE, n (%)"
+  label: "Subjects with >=1 TEAE (%)"
   dataset: ADAE
   analysisVariable: USUBJID
 
@@ -396,36 +451,23 @@ grouping:
   variable: TRTA
 
 method:
-  operations: [COUNT_DISTINCT, PERCENT_BY_SUBSET]
+  operation: Operation_rollup_catvar_summ_grp_pct
+  numerator: COUNT_DISTINCT(USUBJID) in dataSubset by TRTA
+  denominator: COUNT_DISTINCT(USUBJID) in analysisSet by TRTA
 ```
 
 <span style="color: #2563eb; font-weight: 600;">↓ Execute</span>
-:::
 
-::: {.column width="50%"}
 **ARD (Cooked Meal)**
 
-```yaml
-results:
-  - analysisId: AN001
-    row: "Subjects with >=1 TEAE"
-    groupId: "Treatment A"
-    value: "xx (xx.x%)"
-
-  - analysisId: AN001
-    row: "Subjects with >=1 TEAE"
-    groupId: "Treatment B"
-    value: "xx (xx.x%)"
-
-  - analysisId: AN001
-    row: "Subjects with >=1 TEAE"
-    groupId: "Total"
-    value: "xx (xx.x%)"
-```
+::: {.ard-results}
+| analysis_id | analysisSet | dataSubset | group1_variable | group1_value | operation_id | raw_value | formatted_value |
+|---|---|---|---|---|---|---:|---:|
+| AN001 | ADSL.SAFFL EQ Y | ADAE.TRTEMFL EQ Y | TRTA | Treatment A | Operation_rollup_catvar_summ_grp_pct | 0.25 | 25.0 |
+| AN001 | ADSL.SAFFL EQ Y | ADAE.TRTEMFL EQ Y | TRTA | Treatment B | Operation_rollup_catvar_summ_grp_pct | 0.33 | 33.0 |
+:::
 
 <span style="color: #16a34a; font-weight: 600;">✓ Results</span>
-:::
-:::
 
 ::: {style="margin-top: 0.8em; font-size: 0.78em; color: #555;"}
 **LinkML** ensures both the specification and results follow the same schema — any tool that understands ARS can read and execute this.
